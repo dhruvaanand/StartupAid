@@ -37,17 +37,32 @@ export const Fonts = Platform.select({
     rounded: 'ui-rounded',
     /** iOS `UIFontDescriptorSystemDesignMonospaced` */
     mono: 'ui-monospace',
+    // Brand fonts
+    primary: 'Fredoka',
+    secondary: 'Nunito700',
+    secondaryBold: 'Nunito800',
+    secondaryBlack: 'Nunito900',
   },
   default: {
     sans: 'normal',
     serif: 'serif',
     rounded: 'normal',
     mono: 'monospace',
+    // Brand fonts
+    primary: 'Fredoka',
+    secondary: 'Nunito700',
+    secondaryBold: 'Nunito800',
+    secondaryBlack: 'Nunito900',
   },
   web: {
     sans: "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
     serif: "Georgia, 'Times New Roman', serif",
     rounded: "'SF Pro Rounded', 'Hiragino Maru Gothic ProN', Meiryo, 'MS PGothic', sans-serif",
     mono: "SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+    // Brand fonts
+    primary: 'Fredoka',
+    secondary: 'Nunito700',
+    secondaryBold: 'Nunito800',
+    secondaryBlack: 'Nunito900',
   },
 });
