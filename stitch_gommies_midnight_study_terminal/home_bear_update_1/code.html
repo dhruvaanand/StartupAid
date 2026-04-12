@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Manrope:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;700&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-error": "#690005",
+                    "primary-container": "#29a195",
+                    "on-error-container": "#ffdad6",
+                    "surface-container-highest": "#2e3545",
+                    "primary-fixed": "#89f5e7",
+                    "on-tertiary-container": "#202a38",
+                    "tertiary-container": "#8791a3",
+                    "secondary-fixed-dim": "#4edea3",
+                    "tertiary-fixed-dim": "#bdc7d9",
+                    "inverse-primary": "#006a61",
+                    "on-secondary-fixed": "#002113",
+                    "on-primary-container": "#00302b",
+                    "secondary": "#4edea3",
+                    "on-background": "#dce2f7",
+                    "on-primary-fixed-variant": "#005049",
+                    "on-surface-variant": "#bcc9c6",
+                    "on-secondary-container": "#00311f",
+                    "surface-dim": "#0c1322",
+                    "surface-bright": "#323949",
+                    "surface": "#0c1322",
+                    "primary": "#6bd8cb",
+                    "on-primary": "#003732",
+                    "on-secondary": "#003824",
+                    "on-primary-fixed": "#00201d",
+                    "on-tertiary": "#27313f",
+                    "surface-container": "#191f2f",
+                    "surface-container-low": "#141b2b",
+                    "on-tertiary-fixed-variant": "#3d4756",
+                    "tertiary": "#bdc7d9",
+                    "surface-container-high": "#232a3a",
+                    "on-secondary-fixed-variant": "#005236",
+                    "surface-variant": "#2e3545",
+                    "surface-tint": "#6bd8cb",
+                    "secondary-fixed": "#6ffbbe",
+                    "inverse-on-surface": "#293040",
+                    "error": "#ffb4ab",
+                    "on-tertiary-fixed": "#121c2a",
+                    "tertiary-fixed": "#d9e3f6",
+                    "surface-container-lowest": "#070e1d",
+                    "outline": "#879391",
+                    "error-container": "#93000a",
+                    "outline-variant": "#3d4947",
+                    "on-surface": "#dce2f7",
+                    "primary-fixed-dim": "#6bd8cb",
+                    "secondary-container": "#00a572",
+                    "background": "#0c1322",
+                    "inverse-surface": "#dce2f7"
+            },
+            "borderRadius": {
+                    "DEFAULT": "1rem",
+                    "lg": "2rem",
+                    "xl": "3rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Space Grotesk"],
+                    "body": ["Manrope"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      .neumorphic-inset {
+        box-shadow: inset 4px 4px 8px #080c14, inset -4px -4px 8px rgba(27, 37, 55, 0.5);
+      }
+      .neumorphic-flat {
+        box-shadow: -4px -4px 12px rgba(27, 37, 55, 0.5), 4px 4px 12px #080c14;
+      }
+      .custom-scrollbar::-webkit-scrollbar {
+        height: 0px;
+        display: none;
+      }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-[#111827] text-on-surface font-body min-h-screen pb-32 selection:bg-primary selection:text-on-primary">
+<!-- Top Navigation Bar -->
+<header class="w-full top-0 sticky bg-[#141b2b] flex justify-between items-center px-6 py-4 z-[60]">
+<div class="flex items-center gap-3">
+<img alt="User Avatar" class="w-10 h-10 rounded-full border-2 border-primary" data-alt="Minimalist abstract avatar of a nocturnal architect in a teal and dark blue circular frame" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCO_ih4EPQI40KUQVH4WVKdWf2UFJ_GXzBNtcIHwtFFp1d_SPk7OELTTqiPZragIarJFAg_xWMxePbfvqaHZpvCHLpalp_Xbw-MGXhe4U_etNda6XTkybxVX9V5H1FOtPYJXqIxQrvZIEPkx9mQO3kvc0pkxFo-cyGhbSiLDSByuTlKKZ0OwzCsEbqWFEk9iTLoXmGQa_actm3YiXWHK4ZZYZ10kV52nk0XWhguJCyYPDTcAaqRW9g7EfjeLbRVCrp0lpszLH9T7kQ"/>
+<span class="text-xl font-bold text-[#6bd8cb] tracking-tighter font-headline">Gommies</span>
+</div>
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-[#232a3a] transition-colors active:scale-95 duration-200">
+<span class="material-symbols-outlined text-[#6bd8cb]">auto_awesome</span>
+</button>
+</header>
+<main class="px-6 pt-8 space-y-10">
+<!-- Hero Greeting Section -->
+<section class="space-y-1">
+<p class="text-[#bcc9c6] text-[22px] font-light">Good evening,</p>
+<h1 class="text-white text-[48px] font-bold leading-tight font-headline tracking-tight">Alex</h1>
+</section>
+<!-- Hero Widget: Asymmetric Layout -->
+<section class="grid grid-cols-12 gap-6 items-center">
+<!-- Progress Ring Card -->
+<div class="col-span-7 neumorphic-flat bg-surface-container-low rounded-lg p-6 flex flex-col items-center justify-center relative overflow-hidden">
+<div class="relative w-32 h-32 flex items-center justify-center">
+<!-- SVG Progress Circle -->
+<svg class="w-full h-full -rotate-90">
+<circle class="text-surface-container-highest" cx="64" cy="64" fill="transparent" r="54" stroke="currentColor" stroke-width="10"></circle>
+<circle class="text-primary" cx="64" cy="64" fill="transparent" r="54" stroke="currentColor" stroke-dasharray="339.29" stroke-dashoffset="91.6" stroke-linecap="round" stroke-width="10"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center">
+<span class="font-headline text-2xl font-bold text-on-surface">73%</span>
+<span class="font-label text-[10px] uppercase tracking-widest text-primary">Complete</span>
+</div>
+</div>
+<div class="mt-4 text-center">
+<p class="font-label text-xs font-bold uppercase tracking-[0.15em] text-[#bcc9c6]">Daily Goal</p>
+</div>
+</div>
+<!-- Floating Mascot -->
+<div class="col-span-5 flex justify-center items-center">
+<div class="relative group">
+<div class="absolute inset-0 bg-primary/20 blur-3xl rounded-full transition-opacity group-hover:opacity-100 opacity-60"></div>
+<img alt="Official waving bear brand asset" class="relative w-full h-auto drop-shadow-2xl" src="https://lh3.googleusercontent.com/aida/ADBb0uiPt2s0uAecjEQ4VF-G8MYPQ4X6Z_w1Xic3Ccx3-6Py7eQK39aeaoaJDrdosb7tsX778QeZ_9kwMTzXhv292Mwi1rB7BU8KtWoyxkDZMCyxNCtOj5CxeC1RE5Ri8mo5Yzg1Ehdj_CuWHSG2heBW4ThVdUhAvL_bIl_CM12YFHliOCNSdmZ9UAdj9dy6AMdMHdjFAZ5wUASnHd-kZOYOni1v3iFkvpmZpuQaNeoSvWYsIoKFpSHi0w7Ccmp0CAl7WTLxGZLlOsjVvw"/>
+</div>
+</div>
+</section>
+<!-- Your Circle Section -->
+<section class="space-y-6">
+<div class="flex justify-between items-end">
+<h2 class="font-label text-xs font-bold uppercase tracking-[0.2em] text-[#3d4947]">YOUR CIRCLE</h2>
+<span class="font-label text-[10px] text-primary">5 Active</span>
+</div>
+<div class="flex gap-6 overflow-x-auto custom-scrollbar pb-4 -mx-6 px-6">
+<!-- Circle Member 1 -->
+<div class="flex flex-col items-center gap-3 shrink-0">
+<div class="relative">
+<img alt="Sarah" class="w-16 h-16 rounded-full p-1 bg-surface-container-high" data-alt="Portrait of a creative professional woman with soft lighting and a minimalist background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCFKF3rCo24_eUD3XXFHoIKN4Aw0yeXvBoggQrP5ISESBBwjKJTHMqhv2s-ET47_L6L0m4nl9Xscdd5KPY_PCKoGtzDXYE-kbKete8g_iZkhREkJoU0qDZ2IYNRDgoM7wOXHw2rQz9pbFmi9Q82uxmHxYUQyaB-E1pVoTbwHg7p9VIp9FwwekvIeHlZylDhPo9qzEKbvB1VRMFeL9cu0Lg-76Yo7ptP8WUukFiqBTPibLLhNoUhfCfZlj1XOosM7xTf10DUA4jdgco"/>
+<div class="absolute bottom-0 right-0 w-4 h-4 bg-secondary rounded-full border-4 border-surface"></div>
+</div>
+<button class="bg-surface-container-highest px-3 py-1 rounded-full text-[10px] font-label font-bold text-primary active:scale-95 transition-transform">WAVE</button>
+</div>
+<!-- Circle Member 2 -->
+<div class="flex flex-col items-center gap-3 shrink-0">
+<div class="relative">
+<img alt="Marcus" class="w-16 h-16 rounded-full p-1 bg-surface-container-high" data-alt="Portrait of a young male software developer with a neutral background and professional lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAQ87B254TOXF6xKoJjDIJ5QBzcPTlZdCu2IMow-R4VYysuqA7-8kCJceD-0DOQKjTVJ1cjDdkVnP8v_xPOOjhiqF-mPXDiayx91Get-OfLSUTrpMimBrMJp34PU9lHJtBdHuub3TzXS9h1G-jQxLhrXTp4_WQbJ3bLD1_noQFrN2em4aHLnWE4B8bRqJCouZgwHNnyj1A_SXmvnMyMvrzCJ9jCskxdLNEuQJ6X4WtXblf3nv4-SNj5XlgxUuSygNqPiJoB0aDL9fA"/>
+<div class="absolute bottom-0 right-0 w-4 h-4 bg-secondary rounded-full border-4 border-surface"></div>
+</div>
+<button class="bg-surface-container-highest px-3 py-1 rounded-full text-[10px] font-label font-bold text-primary active:scale-95 transition-transform">WAVE</button>
+</div>
+<!-- Circle Member 3 -->
+<div class="flex flex-col items-center gap-3 shrink-0">
+<div class="relative">
+<img alt="Lena" class="w-16 h-16 rounded-full p-1 bg-surface-container-high" data-alt="Portrait of a woman wearing modern glasses with warm studio lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAm15WOQFLbUZpBtvj7zZIDhTDngjI4TICE_eQ6NaK2GUztxQhZZ4uVF-iEp9BU-53dM6v-hatZfbkLTdk7s5MMy0pTvH3o95jMeT9YH9W0FvGxqKIdyng3CsGaD7tZD7Kjg2-VVtkyQORghLxMIM-SaoNCEFv3DR8E9mh8YEHMawJMiqTNSSmRtv_lMpgVpnCJNDavVAXELC2YoPtNTTh2q1xuuWBv2U30ZsLLD8k4s7cDqzb1WRCBQG_cgVQQV-rOlY45jeZpsCg"/>
+<div class="absolute bottom-0 right-0 w-4 h-4 bg-secondary rounded-full border-4 border-surface"></div>
+</div>
+<button class="bg-surface-container-highest px-3 py-1 rounded-full text-[10px] font-label font-bold text-primary active:scale-95 transition-transform">WAVE</button>
+</div>
+<!-- Circle Member 4 -->
+<div class="flex flex-col items-center gap-3 shrink-0">
+<div class="relative">
+<img alt="James" class="w-16 h-16 rounded-full p-1 bg-surface-container-high" data-alt="Portrait of an older man with a friendly expression and sharp, clean lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA5Y1vByrYtN_jJwIMlHudiWamse0Yn8x487CqUyL7JAOQ7fsqqlB-S_5yJnz1YJetDx8BveECJeeE4uL9dOYk62-eTY1P7B98_UvFEpX9kPuFlwIuKPEe9yrHDVEhUEv4Vspb-WNtOtivojbc9i6G8kV4BcjeET4FMwllYqiaREuVkAOeRsv3l_KOr6ombs3czIXlicLb9aqmEDxhJhXhwY-1RZvbk9ObcXepllezEXpteDV2hF7EAp5Nz6ZQp9YVRb_CiwXGBf94"/>
+<div class="absolute bottom-0 right-0 w-4 h-4 bg-outline-variant rounded-full border-4 border-surface"></div>
+</div>
+<button class="bg-surface-container-highest px-3 py-1 rounded-full text-[10px] font-label font-bold text-primary active:scale-95 transition-transform">WAVE</button>
+</div>
+<!-- Circle Member 5 -->
+<div class="flex flex-col items-center gap-3 shrink-0">
+<div class="relative">
+<img alt="Yuki" class="w-16 h-16 rounded-full p-1 bg-surface-container-high" data-alt="Portrait of a person with colorful hair and artistic lighting, minimalist aesthetic" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCWOYEAIg0Km4YRoajHBlsVWSZOPf_QmT2C6VrAIFGycKVUA1R4R6ADiHLIjGtUp0JGTpW42ky0RbnHbMN5ZonLJBiPdKmii7sZzVwhSt0zSgWsCMTN8fRLpxTnbS1vhC5ThiLiQXIravnHOw91RBGQKBY1xFNhzZBGIHrTvbeqLQe73cw2y4oGiWunk-QVvgmubgPh9VNbjko5nF5z2NXtkOLFd0g64gssTxmRrG0oLU85wO9G6EkZzubka2bW3cRPH_2OFECxMQM"/>
+<div class="absolute bottom-0 right-0 w-4 h-4 bg-secondary rounded-full border-4 border-surface"></div>
+</div>
+<button class="bg-surface-container-highest px-3 py-1 rounded-full text-[10px] font-label font-bold text-primary active:scale-95 transition-transform">WAVE</button>
+</div>
+</div>
+</section>
+<!-- Main Card Section -->
+<section>
+<div class="bg-surface-container-low neumorphic-flat rounded-lg p-8 relative overflow-hidden group">
+<!-- Background Pattern -->
+<div class="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full -mr-16 -mt-16 group-hover:scale-110 transition-transform duration-700"></div>
+<div class="relative z-10 flex flex-col gap-6">
+<div class="space-y-2">
+<div class="inline-flex items-center gap-2 bg-surface-container-highest rounded-full px-3 py-1">
+<span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+<span class="font-label text-[10px] uppercase tracking-widest text-[#bcc9c6]">Suggested session</span>
+</div>
+<h3 class="text-3xl font-bold font-headline text-on-surface">Calculus III Study</h3>
+<div class="flex items-center gap-4 text-[#bcc9c6] font-label text-xs">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">timer</span>
+                                45 mins
+                            </div>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">leaderboard</span>
+                                +250 XP
+                            </div>
+</div>
+</div>
+<button class="w-full bg-gradient-to-br from-primary to-primary-container text-on-primary-fixed font-label font-bold py-4 rounded-full shadow-lg shadow-primary/20 active:scale-[0.98] transition-all flex items-center justify-center gap-2">
+                        Begin focus session
+                        <span class="material-symbols-outlined">play_arrow</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Stats Overview Bento Grid snippet -->
+<section class="grid grid-cols-2 gap-4 pb-12">
+<div class="bg-surface-container-lowest p-5 rounded-lg border-l-4 border-primary">
+<p class="font-label text-[10px] uppercase tracking-widest text-outline">STREAK</p>
+<p class="font-headline text-2xl font-bold text-on-surface mt-1">12 Days</p>
+</div>
+<div class="bg-surface-container-lowest p-5 rounded-lg border-l-4 border-secondary">
+<p class="font-label text-[10px] uppercase tracking-widest text-outline">LEVEL</p>
+<p class="font-headline text-2xl font-bold text-on-surface mt-1">LVL 42</p>
+</div>
+</section>
+</main>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 w-full z-50 rounded-t-[2rem] bg-[#0c1322] shadow-[-4px_-4px_12px_rgba(27,37,55,0.5),4px_4px_12px_#080c14]">
+<div class="flex justify-around items-center px-8 pb-8 pt-4">
+<!-- Active Tab: Terminal (Home) -->
+<a class="flex flex-col items-center justify-center bg-[#141b2b] text-[#6bd8cb] rounded-full p-3 shadow-[inset_4px_4px_8px_#080c14,inset_-4px_-4px_8px_rgba(27,37,55,0.5)] transition-all duration-300 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-weight="fill">terminal</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#3d4947] p-3 hover:text-[#4edea3] transition-all duration-300 ease-in-out" href="#">
+<span class="material-symbols-outlined">timer</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#3d4947] p-3 hover:text-[#4edea3] transition-all duration-300 ease-in-out" href="#">
+<span class="material-symbols-outlined">leaderboard</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#3d4947] p-3 hover:text-[#4edea3] transition-all duration-300 ease-in-out" href="#">
+<span class="material-symbols-outlined">settings</span>
+</a>
+</div>
+</nav>
+</body></html>

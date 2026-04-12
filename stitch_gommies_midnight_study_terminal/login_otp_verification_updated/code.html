@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>GOMMIES - OTP Entry</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&amp;family=Manrope:wght@200..800&amp;family=JetBrains+Mono:wght@100..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-container": "#8791a3",
+                        "secondary-container": "#00a572",
+                        "background": "#0c1322",
+                        "surface-tint": "#6bd8cb",
+                        "on-primary": "#003732",
+                        "surface-variant": "#2e3545",
+                        "outline-variant": "#3d4947",
+                        "primary-fixed": "#89f5e7",
+                        "on-secondary-container": "#00311f",
+                        "primary-fixed-dim": "#6bd8cb",
+                        "tertiary": "#bdc7d9",
+                        "secondary": "#4edea3",
+                        "on-background": "#dce2f7",
+                        "on-tertiary-fixed-variant": "#3d4756",
+                        "on-secondary-fixed": "#002113",
+                        "tertiary-fixed-dim": "#bdc7d9",
+                        "primary": "#6bd8cb",
+                        "on-error": "#690005",
+                        "surface-container-lowest": "#070e1d",
+                        "inverse-surface": "#dce2f7",
+                        "on-surface-variant": "#bcc9c6",
+                        "error": "#ffb4ab",
+                        "surface-container-low": "#141b2b",
+                        "on-primary-fixed": "#00201d",
+                        "surface-container-highest": "#2e3545",
+                        "surface": "#0c1322",
+                        "inverse-primary": "#006a61",
+                        "surface-container-high": "#232a3a",
+                        "on-tertiary-fixed": "#121c2a",
+                        "tertiary-fixed": "#d9e3f6",
+                        "error-container": "#93000a",
+                        "primary-container": "#29a195",
+                        "on-secondary": "#003824",
+                        "on-primary-container": "#00302b",
+                        "surface-container": "#191f2f",
+                        "on-error-container": "#ffdad6",
+                        "outline": "#879391",
+                        "secondary-fixed": "#6ffbbe",
+                        "inverse-on-surface": "#293040",
+                        "on-tertiary": "#27313f",
+                        "on-surface": "#dce2f7",
+                        "surface-dim": "#0c1322",
+                        "surface-bright": "#323949",
+                        "on-secondary-fixed-variant": "#005236",
+                        "secondary-fixed-dim": "#4edea3",
+                        "on-tertiary-container": "#202a38",
+                        "on-primary-fixed-variant": "#005049"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Space Grotesk"],
+                        "body": ["Manrope"],
+                        "label": ["JetBrains Mono"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Manrope', sans-serif; background-color: #111827; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        
+        .neumorphic-card {
+            background-color: #1F2937;
+            border-radius: 24px;
+            box-shadow: -4px -4px 12px rgba(43, 57, 77, 0.5), 4px 4px 12px #131a23;
+        }
+
+        .inset-input {
+            background-color: #111827;
+            box-shadow: inset 2px 2px 5px rgba(0,0,0,0.5), inset -1px -1px 3px rgba(255,255,255,0.05);
+        }
+
+        .glow-teal {
+            text-shadow: 0 0 15px rgba(16, 185, 129, 0.4);
+        }
+        
+        body {
+          min-height: 100dvh;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-6">
+<div class="w-full max-w-md flex flex-col items-center">
+<!-- Main Neumorphic Card -->
+<main class="neumorphic-card w-full p-10 flex flex-col items-center gap-8">
+<!-- Branding Area -->
+<div class="text-center flex flex-col items-center">
+<img alt="Gommies Logo" class="h-24 w-auto mb-6 object-contain" src="https://lh3.googleusercontent.com/aida/ADBb0uiX6fsQc2MQLBUSbds6NxeEfM1uvI5nsKbmk1d3pj0G6HXa4TrPNCP-gCyoDZycOuXvJGD-oCLd1sctD5sEANkRnFXQ6i9J377jMh_1Ckgb0Zd66HXxZypl0j-oKO0bjLW8--X4CwRwRY7mn-TUiucnKC11kpFBy0vJSVZErUcmHO0bnMSV23v3xG8_W1VVTb0mvlNiqoLT_9KU-oVNpeOt5prLx12wNrnsE-Q13O7nRqdEMKDmgXm0Yi-My7WqxQHPqX9DxOTFVQ"/>
+<p class="text-[#94A3B8] font-body text-sm font-medium">
+                Enter the 6-digit code sent to your email
+            </p>
+</div>
+<!-- OTP Input Section -->
+<div class="w-full flex flex-col items-center gap-6">
+<div class="relative w-full">
+<input class="w-full inset-input border-none rounded-[16px] py-4 px-6 text-center text-xl font-label tracking-[0.5em] text-[#dce2f7] placeholder-[#94A3B8] focus:ring-2 focus:ring-[#10B981] focus:ring-opacity-50 transition-all outline-none" maxlength="6" placeholder="6-digit code" type="text"/>
+</div>
+<!-- Primary CTA -->
+<button class="w-full bg-[#0D9488] hover:bg-[#0f766e] text-white font-black font-label text-sm tracking-widest py-4 rounded-[16px] transition-all transform active:scale-95 shadow-lg uppercase">
+                Verify &amp; Login
+            </button>
+</div>
+<!-- Recovery Options -->
+<div class="flex justify-center">
+<button class="text-[#64748B] hover:text-[#6bd8cb] font-body text-xs font-semibold tracking-wide transition-colors duration-300">
+                Resend code
+            </button>
+</div>
+</main>
+<!-- Functional Footer Toggle -->
+<footer class="mt-12 w-full flex flex-col items-center gap-4">
+<div class="flex items-center gap-4 py-3 px-6 border border-[#3d4947] border-opacity-20 rounded-full">
+<span class="text-[#64748B] font-label text-[10px] tracking-widest uppercase font-bold">
+                Dev Mode
+            </span>
+<div class="relative inline-flex h-4 w-9 items-center rounded-full bg-[#1F2937] shadow-inner cursor-pointer">
+<span class="inline-block h-3 w-3 translate-x-1 transform rounded-full bg-[#3d4947] transition-transform"></span>
+</div>
+</div>
+<p class="text-[#64748B] font-label text-[9px] tracking-[0.2em] opacity-40 uppercase">
+            Terminal Auth Protocol v4.2.0
+        </p>
+</footer>
+</div>
+<!-- Background Decorative Element (Asymmetric Tonal Shift) -->
+<div class="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
+<div class="absolute -top-[20%] -left-[10%] w-[60%] h-[60%] bg-[#10B981] opacity-[0.03] blur-[120px] rounded-full"></div>
+<div class="absolute -bottom-[10%] -right-[5%] w-[40%] h-[40%] bg-[#0D9488] opacity-[0.03] blur-[100px] rounded-full"></div>
+</div>
+</body></html>

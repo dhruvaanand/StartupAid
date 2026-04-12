@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Active Focus Session | Focus Terminal</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&amp;family=Manrope:wght@200..800&amp;family=JetBrains+Mono:wght@100..800&amp;family=Inter:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container": "#191f2f",
+                        "primary-fixed": "#89f5e7",
+                        "secondary-fixed": "#6ffbbe",
+                        "inverse-on-surface": "#293040",
+                        "surface-container-lowest": "#070e1d",
+                        "primary-container": "#29a195",
+                        "error": "#ffb4ab",
+                        "surface": "#0c1322",
+                        "tertiary": "#bdc7d9",
+                        "inverse-primary": "#006a61",
+                        "on-secondary-fixed-variant": "#005236",
+                        "outline": "#879391",
+                        "on-background": "#dce2f7",
+                        "on-surface": "#dce2f7",
+                        "tertiary-container": "#8791a3",
+                        "secondary": "#4edea3",
+                        "on-error-container": "#ffdad6",
+                        "on-primary-fixed-variant": "#005049",
+                        "surface-bright": "#323949",
+                        "on-tertiary-fixed": "#121c2a",
+                        "primary": "#6bd8cb",
+                        "primary-fixed-dim": "#6bd8cb",
+                        "on-primary-container": "#00302b",
+                        "secondary-container": "#00a572",
+                        "on-error": "#690005",
+                        "surface-dim": "#0c1322",
+                        "on-tertiary-container": "#202a38",
+                        "surface-variant": "#2e3545",
+                        "secondary-fixed-dim": "#4edea3",
+                        "on-tertiary": "#27313f",
+                        "error-container": "#93000a",
+                        "outline-variant": "#3d4947",
+                        "on-secondary-fixed": "#002113",
+                        "on-tertiary-fixed-variant": "#3d4756",
+                        "surface-tint": "#6bd8cb",
+                        "on-primary": "#003732",
+                        "on-secondary": "#003824",
+                        "tertiary-fixed-dim": "#bdc7d9",
+                        "on-surface-variant": "#bcc9c6",
+                        "on-primary-fixed": "#00201d",
+                        "tertiary-fixed": "#d9e3f6",
+                        "on-secondary-container": "#00311f",
+                        "surface-container-highest": "#2e3545",
+                        "surface-container-low": "#141b2b",
+                        "surface-container-high": "#232a3a",
+                        "inverse-surface": "#dce2f7",
+                        "background": "#0c1322"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Space Grotesk"],
+                        "body": ["Manrope"],
+                        "label": ["Inter"],
+                        "mono": ["JetBrains Mono"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .neumorphic-dark {
+            box-shadow: -4px -4px 12px rgba(27, 37, 55, 0.5), 4px 4px 12px #080c14;
+        }
+        .neumorphic-recessed {
+            box-shadow: inset 2px 2px 5px #080c14, inset -2px -2px 5px rgba(27, 37, 55, 0.3);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-surface text-on-surface font-body selection:bg-primary selection:text-on-primary">
+<!-- Top Navigation Anchor -->
+<header class="sticky top-0 z-50 bg-[#141b2b] flex justify-between items-center px-6 py-4 w-full">
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-primary hover:bg-[#232a3a] transition-colors p-2 rounded-full active:scale-95 transition-transform">chevron_left</button>
+</div>
+<div class="flex flex-col items-center">
+<h1 class="font-headline font-extrabold text-[18px] tracking-tight leading-none text-on-surface">Active Session</h1>
+<span class="text-[#64748B] text-[14px] font-medium mt-1">Deep focus mode</span>
+</div>
+<div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-xl">settings</span>
+</div>
+</header>
+<main class="max-w-md mx-auto px-6 pt-6 pb-32">
+<!-- Timer Section (Neumorphic Card) -->
+<section class="mt-6 p-[28px] bg-[#1F2937] rounded-[24px] neumorphic-dark text-left">
+<span class="font-mono text-[#94A3B8] text-[13px] uppercase tracking-[0.1em] block mb-4">Time remaining</span>
+<div class="font-mono text-[64px] font-extrabold text-white leading-none tracking-tight">
+                23:41
+            </div>
+<!-- Progress Bar Visualization -->
+<div class="mt-8 h-1.5 w-full bg-[#141b2b] rounded-full overflow-hidden">
+<div class="h-full bg-gradient-to-r from-primary to-secondary w-3/4 rounded-full"></div>
+</div>
+</section>
+<!-- Topic Tracking Section -->
+<section class="mt-6 p-[20px] bg-[#0D1117] rounded-[20px] neumorphic-dark border-l-4 border-primary">
+<span class="font-mono text-[#64748B] text-[11px] uppercase tracking-[0.1em] block mb-1">CURRENT TRACKING</span>
+<h2 class="text-white text-[18px] font-semibold tracking-tight">Data Structures Deep Dive</h2>
+</section>
+<!-- Social Proof / Collaborative Row -->
+<section class="mt-8 flex items-center justify-between">
+<span class="text-[#64748B] font-medium text-sm">In session with you</span>
+<div class="flex -space-x-[10px]">
+<div class="w-10 h-10 rounded-full bg-[#1F2937] border-2 border-surface flex items-center justify-center text-[12px] font-bold text-primary neumorphic-dark">JD</div>
+<div class="w-10 h-10 rounded-full bg-[#1F2937] border-2 border-surface flex items-center justify-center text-[12px] font-bold text-secondary neumorphic-dark">AM</div>
+<div class="w-10 h-10 rounded-full bg-[#1F2937] border-2 border-surface flex items-center justify-center text-[12px] font-bold text-tertiary neumorphic-dark">TR</div>
+<div class="w-10 h-10 rounded-full bg-[#232a3a] border-2 border-surface flex items-center justify-center text-[10px] font-bold text-[#64748B] neumorphic-dark">+12</div>
+</div>
+</section>
+<!-- Mascot Encouragement Card -->
+<section class="mt-8 flex items-center gap-4 bg-surface-container-low p-6 rounded-lg neumorphic-dark relative overflow-hidden">
+<div class="flex-1">
+<div class="relative bg-surface-container-high p-4 rounded-2xl rounded-bl-none">
+<p class="text-[#94A3B8] text-[15px] font-medium leading-relaxed">
+                        Stay with it — this streak is heat.
+                    </p>
+</div>
+</div>
+<div class="relative flex-shrink-0">
+<div class="w-20 h-20 rounded-full bg-gradient-to-br from-orange-400/20 to-orange-600/40 flex items-center justify-center border border-orange-500/30">
+<img alt="Mascot" class="w-14 h-14" data-alt="Teal bear mascot" src="https://lh3.googleusercontent.com/aida/ADBb0uiPt2s0uAecjEQ4VF-G8MYPQ4X6Z_w1Xic3Ccx3-6Py7eQK39aeaoaJDrdosb7tsX778QeZ_9kwMTzXhv292Mwi1rB7BU8KtWoyxkDZMCyxNCtOj5CxeC1RE5Ri8mo5Yzg1Ehdj_CuWHSG2heBW4ThVdUhAvL_bIl_CM12YFHliOCNSdmZ9UAdj9dy6AMdMHdjFAZ5wUASnHd-kZOYOni1v3iFkvpmZpuQaNeoSvWYsIoKFpSHi0w7Ccmp0CAl7WTLxGZLlOsjVvw"/>
+</div>
+<div class="absolute -top-1 -right-1 bg-secondary w-4 h-4 rounded-full border-2 border-surface"></div>
+</div>
+</section>
+<!-- Action Row -->
+<div class="fixed bottom-0 left-0 w-full px-6 pb-10 pt-4 bg-surface/80 backdrop-blur-xl z-40">
+<div class="max-w-md mx-auto flex gap-4">
+<button class="flex-1 py-4 px-6 rounded-full border border-[#374151] text-[#94A3B8] font-mono text-sm font-bold uppercase tracking-widest hover:bg-[#232a3a] transition-all active:scale-95">
+                    Pause Session
+                </button>
+<button class="flex-1 py-4 px-6 rounded-full bg-[#1A0000] border border-[#F97316] text-[#F97316] font-mono text-sm font-bold uppercase tracking-widest hover:bg-[#2a0505] transition-all active:scale-95 shadow-[0_0_15px_rgba(249,115,22,0.2)]">
+                    End Early
+                </button>
+</div>
+</div>
+</main>
+<!-- Bottom Nav Shell (Suppressed as per task rules for focused journey, but implemented as anchor if needed) -->
+<nav class="hidden md:flex fixed bottom-0 left-0 w-full z-50 justify-around items-center px-8 pb-6 pt-3 bg-[#0c1322]/80 backdrop-blur-xl shadow-[0_-4px_12px_rgba(27,37,55,0.5)] rounded-t-[2rem]">
+<div class="flex flex-col items-center justify-center bg-[#6bd8cb] text-[#0c1322] rounded-full p-3 active:scale-90 duration-200">
+<span class="material-symbols-outlined" data-icon="timer">timer</span>
+</div>
+<div class="flex flex-col items-center justify-center text-[#dce2f7]/40 p-3 hover:text-[#6bd8cb] transition-all">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+</div>
+<div class="flex flex-col items-center justify-center text-[#dce2f7]/40 p-3 hover:text-[#6bd8cb] transition-all">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+</div>
+<div class="flex flex-col items-center justify-center text-[#dce2f7]/40 p-3 hover:text-[#6bd8cb] transition-all">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+</div>
+</nav>
+</body></html>

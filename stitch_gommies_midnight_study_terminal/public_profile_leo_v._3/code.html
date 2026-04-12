@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Gommie Profile</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Manrope:wght@300;400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-primary-fixed": "#00201d",
+                      "secondary-container": "#00a572",
+                      "primary": "#6bd8cb",
+                      "error": "#ffb4ab",
+                      "primary-fixed-dim": "#6bd8cb",
+                      "surface-container-low": "#141b2b",
+                      "on-secondary-fixed": "#002113",
+                      "on-surface": "#dce2f7",
+                      "surface-container-lowest": "#070e1d",
+                      "surface": "#0c1322",
+                      "tertiary-fixed": "#d9e3f6",
+                      "on-tertiary-fixed": "#121c2a",
+                      "on-surface-variant": "#bcc9c6",
+                      "surface-container-highest": "#2e3545",
+                      "on-background": "#dce2f7",
+                      "on-primary-container": "#00302b",
+                      "inverse-on-surface": "#293040",
+                      "tertiary-fixed-dim": "#bdc7d9",
+                      "surface-container": "#191f2f",
+                      "primary-container": "#29a195",
+                      "on-error-container": "#ffdad6",
+                      "surface-bright": "#323949",
+                      "outline-variant": "#3d4947",
+                      "on-secondary-container": "#00311f",
+                      "secondary-fixed": "#6ffbbe",
+                      "on-tertiary-fixed-variant": "#3d4756",
+                      "surface-variant": "#2e3545",
+                      "primary-fixed": "#89f5e7",
+                      "outline": "#879391",
+                      "error-container": "#93000a",
+                      "on-primary": "#003732",
+                      "tertiary": "#bdc7d9",
+                      "on-tertiary": "#27313f",
+                      "inverse-primary": "#006a61",
+                      "background": "#0c1322",
+                      "surface-tint": "#6bd8cb",
+                      "on-secondary-fixed-variant": "#005236",
+                      "surface-dim": "#0c1322",
+                      "on-primary-fixed-variant": "#005049",
+                      "tertiary-container": "#8791a3",
+                      "secondary": "#4edea3",
+                      "on-tertiary-container": "#202a38",
+                      "inverse-surface": "#dce2f7",
+                      "secondary-fixed-dim": "#4edea3",
+                      "surface-container-high": "#232a3a",
+                      "on-secondary": "#003824",
+                      "on-error": "#690005"
+              },
+              "borderRadius": {
+                      "DEFAULT": "1rem",
+                      "lg": "2rem",
+                      "xl": "3rem",
+                      "full": "9999px"
+              },
+              "fontFamily": {
+                      "headline": ["Space Grotesk"],
+                      "body": ["Manrope"],
+                      "label": ["Inter"]
+              }
+            },
+          },
+        }
+      </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .neumorphic-card {
+            background: #0c1322;
+            box-shadow: -12px -12px 24px rgba(27, 37, 55, 0.4), 12px 12px 24px rgba(8, 12, 20, 0.9);
+        }
+        .neumorphic-inner {
+            background: #0c1322;
+            box-shadow: inset -4px -4px 10px rgba(27, 37, 55, 0.3), inset 4px 4px 10px rgba(0, 0, 0, 0.5);
+        }
+        .teal-gradient-cta {
+            background: linear-gradient(135deg, #6bd8cb 0%, #29a195 100%);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-surface text-on-surface font-body selection:bg-primary/30 min-h-screen flex flex-col">
+<!-- TopAppBar -->
+<nav class="w-full top-0 sticky bg-[#141b2b] flex items-center px-6 py-4 z-50">
+<div class="flex items-center w-full max-w-4xl mx-auto justify-between">
+<button class="material-symbols-outlined text-[#6bd8cb] active:scale-95 transition-transform p-2 hover:bg-[#232a3a] rounded-full" data-icon="arrow_back">arrow_back</button>
+<h1 class="text-lg font-bold text-[#6bd8cb] uppercase tracking-widest font-['Space_Grotesk']">GOMMIE PROFILE</h1>
+<div class="w-10"></div> <!-- Spacer for centering -->
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="flex-grow flex items-center justify-center px-6 py-20">
+<div class="w-full max-w-md relative">
+<!-- Profile ID Card -->
+<div class="neumorphic-card rounded-[32px] p-8 pt-0 flex flex-col items-center text-center">
+<!-- Floating Avatar -->
+<div class="-mt-20 w-[120px] h-[120px] rounded-full bg-[#0c1322] border-[3px] border-[#3d4947] flex items-center justify-center shadow-xl"><img alt="Bear Mascot" class="w-full h-full object-contain p-2" src="https://lh3.googleusercontent.com/aida/ADBb0uhmkw4PTrRN7hV8LGB_8qH0pfMrtvhsD9opDQHdjn6r3FEpiXKZLOA672ISA_NZSO3_ilOCFAdGPJoF-vWUAGFYwKyGBT9eRdqrDYS_QFnBwqH_xRlrHivnloGPmp5ANAmDOsa7Sh8wl0r2pSSM6B3XpEcDkX_cfMqOqbcvLv4l6HdPjhu0_XiLyNx7qZIRvbihOhKl3SMHd0LiT4kQuXt13A5QxsJZIx7HO8QVHvzBRbMI5Y1xR0iemjstAS7zfX1J6dVCAV0qLw"/></div>
+<!-- User Information -->
+<div class="mt-6 mb-10">
+<h2 class="text-white text-[28px] font-extrabold leading-tight">Leo V.</h2>
+<p class="text-on-surface-variant text-[14px] font-label font-bold uppercase tracking-[0.2em] mt-1">Level 3 Student</p>
+</div>
+<!-- Stats Grid (Horizontal Asymmetry via Tonal Boxes) -->
+<div class="grid grid-cols-3 gap-4 w-full mb-10">
+<!-- Stat 1 -->
+<div class="neumorphic-inner border border-outline-variant/10 rounded-[20px] p-4 flex flex-col items-center justify-center">
+<span class="material-symbols-outlined text-[#FB923C] mb-2 text-xl" data-icon="local_fire_department" style="font-variation-settings: 'FILL' 1;">local_fire_department</span>
+<span class="text-white font-['JetBrains_Mono'] text-lg font-bold leading-none">12</span>
+<span class="text-[10px] font-['JetBrains_Mono'] text-outline tracking-tighter mt-1">STREAK</span>
+</div>
+<!-- Stat 2 -->
+<div class="neumorphic-inner border border-outline-variant/10 rounded-[20px] p-4 flex flex-col items-center justify-center">
+<span class="material-symbols-outlined text-[#FBBF24] mb-2 text-xl" data-icon="bolt" style="font-variation-settings: 'FILL' 1;">bolt</span>
+<span class="text-white font-['JetBrains_Mono'] text-lg font-bold leading-none">980</span>
+<span class="text-[10px] font-['JetBrains_Mono'] text-outline tracking-tighter mt-1">XP</span>
+</div>
+<!-- Stat 3 -->
+<div class="neumorphic-inner border border-outline-variant/10 rounded-[20px] p-4 flex flex-col items-center justify-center">
+<span class="material-symbols-outlined text-[#10B981] mb-2 text-xl" data-icon="target" style="font-variation-settings: 'FILL' 1;">track_changes</span>
+<span class="text-white font-['JetBrains_Mono'] text-lg font-bold leading-none">84%</span>
+<span class="text-[10px] font-['JetBrains_Mono'] text-outline tracking-tighter mt-1">GOAL</span>
+</div>
+</div>
+<!-- Primary CTA -->
+<button class="teal-gradient-cta w-[240px] py-4 rounded-full text-on-primary-fixed font-['JetBrains_Mono'] font-extrabold text-sm uppercase tracking-widest active:scale-95 transition-all shadow-[0_10px_20px_rgba(107,216,203,0.2)]">
+                    ADD FRIEND
+                </button>
+</div>
+<!-- Optional Terminal Decorative Element -->
+<div class="mt-8 text-center">
+<p class="text-[10px] font-['JetBrains_Mono'] text-outline-variant/60 tracking-widest uppercase">
+                    Connected to Node: GOM-0822
+                </p>
+</div>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-6 pb-6 pt-3 bg-[#0c1322]/80 backdrop-blur-xl border-t border-[#3d4947]/15 shadow-[0_-8px_30px_rgb(0,0,0,0.12)] rounded-t-3xl">
+<a class="flex flex-col items-center justify-center text-[#dce2f7]/40 hover:text-[#4edea3] transition-all" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="terminal">terminal</span>
+<span class="font-['JetBrains_Mono'] text-[10px] uppercase tracking-widest">Terminal</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#dce2f7]/40 hover:text-[#4edea3] transition-all" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="group">group</span>
+<span class="font-['JetBrains_Mono'] text-[10px] uppercase tracking-widest">Network</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#dce2f7]/40 hover:text-[#4edea3] transition-all" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="shield">shield</span>
+<span class="font-['JetBrains_Mono'] text-[10px] uppercase tracking-widest">Vault</span>
+</a>
+<!-- Active Tab: Profile (Closest to current intent) -->
+<a class="flex flex-col items-center justify-center text-[#6bd8cb] bg-[#6bd8cb]/10 rounded-full px-4 py-1 active:scale-90 duration-200" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="person">person</span>
+<span class="font-['JetBrains_Mono'] text-[10px] uppercase tracking-widest">Settings</span>
+</a>
+</nav>
+</body></html>

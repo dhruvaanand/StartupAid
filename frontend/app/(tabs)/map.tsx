@@ -1,405 +1,349 @@
-import React, { useEffect, useMemo, useState } from 'react';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import {
-  ActivityIndicator,
-  Pressable,
-  ScrollView,
-  StyleSheet,
-  Text,
   View,
+  Text,
+  StyleSheet,
+  FlatList,
+  Pressable,
+  Animated,
   TextInput,
 } from 'react-native';
-import { Search, ChevronRight } from 'lucide-react-native';
-
-import { supabase } from '@/lib/supabase';
-import { Fonts } from '@/constants/theme';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
+import { ChevronRight, Map, Search } from 'lucide-react-native';
+import { LinearGradient } from 'expo-linear-gradient';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { useColorScheme } from 'react-native';
 
-type TopicRow = {
-  id: string;
-  course_code: string;
-  name: string;
-  exam_frequency_score: number;
-  peer_difficulty_score: number;
-  priority_level: string;
-};
+import { Fonts, Palette } from '@/constants/theme';
+import { API_URL } from '@/constants/api';
 
-const COURSES = [
-  'MA2.101',
-  'CS1.201',
-  'CS2.201',
-  'CS6.201',
-  'CS3.303',
-  'EC5.102',
-  'EC2.103',
+// ── Static course manifest ────────────────────────────────
+const COURSE_MANIFEST: { code: string; name: string }[] = [
+  { code: 'MA2.101', name: 'Linear Algebra & Calculus II' },
+  { code: 'CS1.201', name: 'Data Structures & Algorithms' },
+  { code: 'CS2.201', name: 'Computer Organisation' },
+  { code: 'CS6.201', name: 'Theory of Computation' },
+  { code: 'CS3.303', name: 'Operating Systems' },
+  { code: 'EC5.102', name: 'Digital Signal Processing' },
+  { code: 'EC2.103', name: 'Analog Circuits' },
 ];
 
-const priorityTag = (priority: string): 'HIGH' | 'MEDIUM' | 'SKIP' => {
-  const p = (priority ?? '').toUpperCase();
-  if (p.includes('HIGH')) return 'HIGH';
-  if (p.includes('SKIP')) return 'SKIP';
-  return 'MEDIUM';
+const SIGNAL_COLORS = {
+  HIGH:   '#0D9488',
+  MEDIUM: '#FB923C',
+  SKIP:   '#888780',
+} as const;
+
+type CourseSignal = 'HIGH' | 'MEDIUM' | 'SKIP';
+
+type CourseMeta = {
+  code: string;
+  name: string;
+  signal: CourseSignal;
+  topicCount: number;
+  paperCount: number;
+  loaded: boolean;
 };
 
-export default function MapScreen() {
-  const router = useRouter();
-  const [selectedCourse, setSelectedCourse] = useState('CS1.201');
-  const [searchQuery, setSearchQuery] = useState('');
-  
-  const [topics, setTopics] = useState<TopicRow[]>([]);
-  const [expandedId, setExpandedId] = useState<string | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+function deriveSignal(nodes: { priority: string }[]): CourseSignal {
+  if (!nodes.length) return 'SKIP';
+  const counts = { HIGH: 0, MEDIUM: 0, SKIP: 0 };
+  nodes.forEach(n => {
+    if (n.priority === 'HIGH') counts.HIGH++;
+    else if (n.priority === 'MEDIUM') counts.MEDIUM++;
+    else counts.SKIP++;
+  });
+  if (counts.HIGH >= counts.MEDIUM && counts.HIGH >= counts.SKIP) return 'HIGH';
+  if (counts.MEDIUM >= counts.SKIP) return 'MEDIUM';
+  return 'SKIP';
+}
+
+// ── Card ──────────────────────────────────────────────────
+function CourseCard({
+  course,
+  onPress,
+  index,
+}: {
+  course: CourseMeta;
+  onPress: () => void;
+  index: number;
+}) {
+  const scheme = useColorScheme() ?? 'dark';
+  const colors = Palette[scheme];
+  const fadeAnim = useRef(new Animated.Value(0)).current;
+  const slideAnim = useRef(new Animated.Value(24)).current;
+  const scaleAnim = useRef(new Animated.Value(1)).current;
 
   useEffect(() => {
-    const fetchTopics = async () => {
-      try {
-        setLoading(true);
-        setError(null);
-        setExpandedId(null);
+    Animated.parallel([
+      Animated.timing(fadeAnim, { toValue: 1, duration: 280, delay: index * 55, useNativeDriver: true }),
+      Animated.timing(slideAnim, { toValue: 0, duration: 280, delay: index * 55, useNativeDriver: true }),
+    ]).start();
+  }, []);
 
-        const { data, error: queryError } = await supabase
-          .from('topics')
-          .select('id, course_code, name, exam_frequency_score, peer_difficulty_score, priority_level')
-          .eq('course_code', selectedCourse)
-          .order('exam_frequency_score', { ascending: false });
+  const handlePressIn = () =>
+    Animated.spring(scaleAnim, { toValue: 0.975, useNativeDriver: true, speed: 100, bounciness: 0 }).start();
+  const handlePressOut = () =>
+    Animated.spring(scaleAnim, { toValue: 1, useNativeDriver: true, speed: 100, bounciness: 0 }).start();
 
-        if (queryError) throw queryError;
-        setTopics((data ?? []) as TopicRow[]);
-      } catch (e: any) {
-        setError(e?.message ?? 'Failed to load topics');
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    void fetchTopics();
-  }, [selectedCourse]);
-
-  const renderedTopics = useMemo(() => topics, [topics]);
-
-  const filteredCourses = useMemo(() => {
-    if (!searchQuery) return COURSES;
-    return COURSES.filter(c => c.toLowerCase().includes(searchQuery.toLowerCase()));
-  }, [searchQuery]);
-
-  const startFocus = (topic: TopicRow) => {
-    router.push(`/focus/${selectedCourse.toLowerCase()}`);
-  }
+  const accentColor = course.signal === 'HIGH' ? colors.success : course.signal === 'MEDIUM' ? colors.error : colors.textSecondary;
 
   return (
-    <SafeAreaView style={styles.safe}>
-      <View style={styles.shell}>
-        <Text style={styles.title}>Priority Map</Text>
+    <Animated.View style={{ opacity: fadeAnim, transform: [{ translateY: slideAnim }, { scale: scaleAnim }] }}>
+      <Pressable onPress={onPress} onPressIn={handlePressIn} onPressOut={handlePressOut}>
+        <View style={[styles.card, { backgroundColor: colors.surface, borderColor: colors.border }, { shadowColor: colors.shadow }]}>
+          <View style={[styles.accentBar, { backgroundColor: accentColor }]} />
+          <View style={styles.cardBody}>
+            <View style={styles.cardTop}>
+              <View style={styles.courseInfo}>
+                <Text style={[styles.courseCode, { color: colors.accent }]}>{course.code}</Text>
+                <Text style={[styles.courseName, { color: colors.text }]} numberOfLines={2}>{course.name}</Text>
+              </View>
+              <View style={[styles.chevronWrap, { backgroundColor: colors.surfaceSecondary }]}>
+                <ChevronRight size={18} color={course.loaded ? accentColor : colors.textSecondary} strokeWidth={2.5} />
+              </View>
+            </View>
 
-        <View style={styles.searchContainer}>
-          <Search size={18} color="#94A3B8" />
-          <TextInput
-            style={styles.searchInput}
-            placeholder="Search for a course..."
-            placeholderTextColor="#94A3B8"
-            value={searchQuery}
-            onChangeText={setSearchQuery}
-          />
-        </View>
-
-        {searchQuery ? (
-          <ScrollView style={styles.dropdown} keyboardShouldPersistTaps="handled">
-            {filteredCourses.map((course) => (
-              <Pressable
-                key={course}
-                onPress={() => {
-                  setSelectedCourse(course);
-                  setSearchQuery('');
-                }}
-                style={styles.dropdownItem}
-              >
-                <Text style={styles.dropdownItemText}>{course}</Text>
-              </Pressable>
-            ))}
-            {filteredCourses.length === 0 && (
-              <Text style={styles.dropdownEmpty}>No courses found.</Text>
-            )}
-          </ScrollView>
-        ) : (
-          <View style={styles.selectedBadge}>
-            <Text style={styles.selectedBadgeText}>Showing Route For: {selectedCourse}</Text>
-          </View>
-        )}
-
-        {loading ? (
-          <View style={styles.centerState}>
-            <ActivityIndicator size="large" color="#0D9488" />
-            <Text style={styles.centerText}>Loading roadmap…</Text>
-          </View>
-        ) : error ? (
-          <View style={styles.centerState}>
-            <Text style={styles.errorTitle}>Couldn&apos;t load roadmap</Text>
-            <Text style={styles.errorBody}>{error}</Text>
-          </View>
-        ) : renderedTopics.length === 0 ? (
-          <View style={styles.centerState}>
-            <Text style={styles.centerText}>No topics found for this course.</Text>
-          </View>
-        ) : (
-          <ScrollView
-            style={styles.roadmapScroll}
-            contentContainerStyle={styles.roadmapContent}
-            showsVerticalScrollIndicator={false}>
-            
-            <View style={styles.spine} />
-
-            {renderedTopics.map((topic, index) => {
-              const tag = priorityTag(topic.priority_level);
-              const isLeft = index % 2 === 0;
-              const expanded = expandedId === topic.id;
-
-              return (
-                <View key={topic.id} style={styles.nodeWrapper}>
-                  {/* Spine Node Dot */}
-                  <View style={[styles.spineNode, tag === 'HIGH' && { borderColor: '#FB923C' }]} />
-
-                  {/* Widget Card */}
-                  <Pressable 
-                    onPress={() => setExpandedId(expanded ? null : topic.id)}
-                    style={[styles.widgetCard, isLeft ? styles.widgetCardLeft : styles.widgetCardRight]}
-                  >
-                    <View style={styles.topicHeaderRow}>
-                      <View style={{ flex: 1 }}>
-                        <Text style={styles.topicName}>{topic.name}</Text>
-                        <View style={[styles.tagPill, tag === 'HIGH' ? styles.tagHigh : tag === 'MEDIUM' ? styles.tagMedium : styles.tagSkip]}>
-                          <Text style={styles.tagText}>{tag}</Text>
-                        </View>
-                      </View>
-                      <ChevronRight size={18} color="#94A3B8" style={{ transform: [{ rotate: expanded ? '90deg' : '0deg' }] }} />
+            <View style={styles.statsRow}>
+              {course.loaded ? (
+                <>
+                  <View style={[styles.statPill, { backgroundColor: colors.surfaceSecondary, borderColor: `${accentColor}30` }]}>
+                    <Text style={[styles.statText, { color: accentColor }]}>{course.topicCount} TOPICS</Text>
+                  </View>
+                  {course.paperCount > 0 && (
+                    <View style={[styles.statPill, { backgroundColor: colors.surfaceSecondary, borderColor: colors.border }]}>
+                      <Text style={[styles.statText, { color: colors.textSecondary }]}>{course.paperCount} PAPERS</Text>
                     </View>
-
-                    {expanded && (
-                      <View style={styles.expandedDetails}>
-                        <Pressable style={styles.studyBtn} onPress={() => startFocus(topic)}>
-                          <Text style={styles.studyBtnText}>Start studying this</Text>
-                        </Pressable>
-                      </View>
-                    )}
-                  </Pressable>
+                  )}
+                  <View style={[styles.signalDot, { backgroundColor: accentColor }]} />
+                  <Text style={[styles.signalLabel, { color: accentColor }]}>{course.signal}</Text>
+                </>
+              ) : (
+                <View style={styles.loadingRow}>
+                  <View style={styles.shimmer} />
+                  <View style={[styles.shimmer, { width: 48 }]} />
                 </View>
-              );
-            })}
-          </ScrollView>
-        )}
+              )}
+            </View>
+          </View>
+        </View>
+      </Pressable>
+    </Animated.View>
+  );
+}
+
+// ── Main ─────────────────────────────────────────────────
+export default function MapScreen() {
+  const router = useRouter();
+  const scheme = useColorScheme() ?? 'dark';
+  const colors = Palette[scheme];
+
+  const [courses, setCourses] = useState<CourseMeta[]>(
+    COURSE_MANIFEST.map(c => ({ ...c, signal: 'SKIP' as CourseSignal, topicCount: 0, paperCount: 0, loaded: false }))
+  );
+  const [searchQuery, setSearchQuery] = useState('');
+  const showSearch = true; // Always show search for better discovery
+
+  const loadCourseMeta = useCallback(async () => {
+    await Promise.all(
+      COURSE_MANIFEST.map(async (course, idx) => {
+        try {
+          const res = await fetch(`${API_URL}/topics/${course.code}`);
+          if (!res.ok) return;
+          const data = await res.json();
+          const signal = deriveSignal(data.nodes ?? []);
+          setCourses(prev => {
+            const next = [...prev];
+            next[idx] = { ...next[idx], signal, topicCount: (data.nodes ?? []).length, paperCount: data.paper_count ?? 0, loaded: true };
+            return next;
+          });
+        } catch {
+          setCourses(prev => {
+            const next = [...prev];
+            next[idx] = { ...next[idx], loaded: true };
+            return next;
+          });
+        }
+      })
+    );
+  }, []);
+
+  useEffect(() => { loadCourseMeta(); }, [loadCourseMeta]);
+
+  const filtered = searchQuery
+    ? courses.filter(c => c.code.toLowerCase().includes(searchQuery.toLowerCase()) || c.name.toLowerCase().includes(searchQuery.toLowerCase()))
+    : courses;
+
+  const sorted = [...filtered].sort((a, b) => {
+    const order = { HIGH: 0, MEDIUM: 1, SKIP: 2 };
+    return order[a.signal] - order[b.signal];
+  });
+
+  return (
+    <SafeAreaView style={[styles.safe, { backgroundColor: colors.background }]}>
+      {/* Header */}
+      <View style={[styles.header, { backgroundColor: colors.surface, shadowColor: colors.shadow }]}>
+        <MaterialCommunityIcons name="hub" size={22} color={colors.accent} />
+        <View style={styles.headerCenter}>
+          <Text style={[styles.headerTitle, { color: colors.accent }]}>PRIORITY MAP</Text>
+          <Text style={[styles.headerSubtitle, { color: colors.textSecondary }]}>SELECT COURSE OBJECTIVE</Text>
+        </View>
+        <View style={styles.headerIconRight}>
+          <Map size={20} color={colors.textSecondary} />
+        </View>
       </View>
+
+      {/* Status strip */}
+      <LinearGradient colors={[colors.accentSecondary, 'transparent']} style={[styles.statusBanner, { borderBottomColor: colors.border }]}>
+        <Text style={[styles.statusText, { color: colors.accent }]}>
+          {courses.filter(c => c.loaded && c.signal === 'HIGH').length} HIGH-PRIORITY ZONES DETECTED
+        </Text>
+      </LinearGradient>
+
+      {/* Optional search */}
+      {showSearch && (
+        <View style={styles.searchRow}>
+          <View style={[styles.searchBox, { backgroundColor: colors.surface, shadowColor: colors.shadow }]}>
+            <Search size={16} color={colors.textSecondary} />
+            <TextInput
+              style={[styles.searchInput, { color: colors.text }]}
+              placeholder="Filter courses..."
+              placeholderTextColor={colors.textSecondary + '60'}
+              value={searchQuery}
+              onChangeText={setSearchQuery}
+            />
+          </View>
+        </View>
+      )}
+
+      {/* List */}
+      <FlatList
+        data={sorted}
+        keyExtractor={item => item.code}
+        contentContainerStyle={styles.listContent}
+        showsVerticalScrollIndicator={false}
+        ItemSeparatorComponent={() => <View style={styles.separator} />}
+        renderItem={({ item, index }) => (
+          <CourseCard
+            course={item}
+            index={index}
+            onPress={() => router.push(`/priority/${item.code}`)}
+          />
+        )}
+        ListFooterComponent={
+          <View style={styles.footer}>
+            <Text style={[styles.footerText, { color: colors.textSecondary }]}>
+              {courses.filter(c => c.loaded).length}/{courses.length} STATIONS ONLINE
+            </Text>
+          </View>
+        }
+      />
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  safe: {
-    flex: 1,
-    backgroundColor: '#111827',
-  },
-  shell: {
-    flex: 1,
-    backgroundColor: '#111827',
-    paddingHorizontal: 16,
-    paddingTop: 16,
-  },
-  title: {
-    color: '#FFFFFF',
-    fontSize: 28,
-    fontWeight: '900',
-    fontFamily: Fonts.primary,
-    marginBottom: 16,
-  },
-  searchContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#1F2937',
-    borderRadius: 16,
-    paddingHorizontal: 14,
-    height: 48,
-    borderWidth: 1,
-    borderColor: '#374151',
-    zIndex: 10,
-  },
-  searchInput: {
-    flex: 1,
-    marginLeft: 10,
-    color: '#FFFFFF',
-    fontSize: 15,
-    fontFamily: Fonts.secondary,
-  },
-  dropdown: {
-    maxHeight: 200,
-    backgroundColor: '#1F2937',
-    borderRadius: 16,
-    marginTop: 8,
-    borderWidth: 1,
-    borderColor: '#374151',
-    padding: 8,
-    zIndex: 20,
-    position: 'absolute',
-    top: 100,
-    left: 16,
-    right: 16,
-  },
-  dropdownItem: {
-    paddingVertical: 12,
-    paddingHorizontal: 12,
-    borderRadius: 8,
-  },
-  dropdownItemText: {
-    color: '#E5E7EB',
-    fontSize: 15,
-    fontFamily: Fonts.primary,
-    fontWeight: '700',
-  },
-  dropdownEmpty: {
-    padding: 12,
-    color: '#94A3B8',
-    fontFamily: Fonts.secondary,
-    textAlign: 'center',
-  },
-  selectedBadge: {
-    marginTop: 12,
-    marginBottom: 16,
-    alignSelf: 'flex-start',
-    backgroundColor: '#022C22',
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    borderRadius: 999,
-  },
-  selectedBadgeText: {
-    color: '#34D399',
-    fontSize: 12,
-    fontWeight: '800',
-    fontFamily: Fonts.secondary,
-  },
-  centerState: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  centerText: {
-    color: '#94A3B8',
-    fontSize: 14,
-    fontFamily: Fonts.secondary,
-    marginTop: 10,
-  },
-  errorTitle: {
-    color: '#EF4444',
-    fontSize: 16,
-    fontFamily: Fonts.primary,
-    fontWeight: '900',
-  },
-  errorBody: {
-    color: '#FCA5A5',
-    fontFamily: Fonts.secondary,
-    marginTop: 4,
-  },
-  roadmapScroll: {
-    flex: 1,
-    zIndex: 1,
-  },
-  roadmapContent: {
-    paddingBottom: 40,
-    paddingTop: 10,
-  },
-  spine: {
-    position: 'absolute',
-    left: '50%',
-    marginLeft: -2,
-    top: 0,
-    bottom: 0,
-    width: 4,
-    backgroundColor: '#1E293B',
-    borderRadius: 999,
-  },
-  nodeWrapper: {
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-    justifyContent: 'center',
-    marginBottom: 24,
-    position: 'relative',
-    width: '100%',
-  },
-  spineNode: {
-    position: 'absolute',
-    left: '50%',
-    marginLeft: -8,
-    top: '50%',
-    marginTop: -8,
-    width: 16,
-    height: 16,
-    borderRadius: 8,
-    backgroundColor: '#111827',
-    borderWidth: 3,
-    borderColor: '#0D9488',
-    zIndex: 2,
-  },
-  widgetCard: {
-    width: '45%',
-    backgroundColor: '#020617',
-    borderRadius: 16,
-    borderWidth: 1,
-    borderColor: '#1E293B',
-    padding: 12,
-    zIndex: 1,
-  },
-  widgetCardLeft: {
-    marginRight: 'auto',
-  },
-  widgetCardRight: {
-    marginLeft: 'auto',
-  },
-  topicHeaderRow: {
+  safe: { flex: 1, backgroundColor: '#0c1322' },
+
+  header: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
+    paddingHorizontal: 24,
+    paddingVertical: 16,
+    backgroundColor: '#0c1322',
+    boxShadow: [
+      { offsetX: 4, offsetY: 4, blurRadius: 12, color: '#080c14' },
+      { offsetX: -4, offsetY: -4, blurRadius: 12, color: 'rgba(27,37,55,0.5)' },
+    ],
   },
-  topicName: {
-    color: '#FFFFFF',
-    fontSize: 14,
-    fontWeight: '800',
-    fontFamily: Fonts.primary,
-    marginBottom: 6,
+  headerCenter: { flex: 1, alignItems: 'center' },
+  headerTitle: {
+    color: '#6bd8cb',
+    fontSize: 18,
+    fontFamily: Fonts?.primary ?? 'system',
+    letterSpacing: 3,
+    fontWeight: 'bold',
   },
-  tagPill: {
-    alignSelf: 'flex-start',
-    borderRadius: 999,
-    paddingHorizontal: 8,
-    paddingVertical: 3,
+  headerSubtitle: {
+    color: '#879391',
+    fontSize: 9,
+    fontFamily: Fonts?.mono ?? 'system',
+    letterSpacing: 2.5,
+    marginTop: 3,
   },
-  tagHigh: {
-    backgroundColor: '#7C2D12',
+  headerIconRight: { width: 40, height: 40, alignItems: 'center', justifyContent: 'center' },
+
+  statusBanner: {
+    paddingHorizontal: 24,
+    paddingVertical: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: 'rgba(13,148,136,0.12)',
   },
-  tagMedium: {
-    backgroundColor: '#064E3B',
-  },
-  tagSkip: {
-    backgroundColor: '#1F2937',
-  },
-  tagText: {
-    color: '#FFFFFF',
-    fontSize: 10,
-    fontWeight: '900',
-    fontFamily: Fonts.secondary,
-  },
-  expandedDetails: {
-    marginTop: 12,
-    paddingTop: 12,
-    borderTopWidth: 1,
-    borderTopColor: '#1E293B',
-  },
-  studyBtn: {
-    backgroundColor: '#0D9488',
-    borderRadius: 8,
-    paddingVertical: 8,
+  statusText: { color: '#6bd8cb', fontSize: 10, fontFamily: Fonts?.mono ?? 'system', letterSpacing: 2 },
+
+  searchRow: { paddingHorizontal: 24, paddingVertical: 12 },
+  searchBox: {
+    flexDirection: 'row',
     alignItems: 'center',
+    backgroundColor: '#141b2b',
+    borderRadius: 999,
+    paddingHorizontal: 18,
+    height: 46,
+    gap: 10,
+    boxShadow: [
+      { offsetX: 4, offsetY: 4, blurRadius: 8, color: '#080c14', inset: true },
+      { offsetX: -4, offsetY: -4, blurRadius: 8, color: 'rgba(27,37,55,0.2)', inset: true },
+    ],
   },
-  studyBtnText: {
-    color: '#FFFFFF',
-    fontSize: 12,
-    fontWeight: '900',
-    fontFamily: Fonts.primary,
+  searchInput: { flex: 1, color: '#dce2f7', fontSize: 14, fontFamily: Fonts?.body ?? 'system', padding: 0 },
+
+  listContent: { paddingHorizontal: 20, paddingTop: 20, paddingBottom: 120 },
+  separator: { height: 12 },
+
+  card: {
+    flexDirection: 'row',
+    backgroundColor: '#141b2b',
+    borderRadius: 18,
+    overflow: 'hidden',
+    borderWidth: 1,
+    borderColor: 'rgba(61,73,71,0.2)',
+    boxShadow: [
+      { offsetX: -4, offsetY: -4, blurRadius: 12, color: 'rgba(27,37,55,0.5)' },
+      { offsetX: 4, offsetY: 4, blurRadius: 12, color: '#080c14' },
+    ],
   },
+  accentBar: { width: 4, alignSelf: 'stretch' },
+  cardBody: { flex: 1, paddingHorizontal: 18, paddingVertical: 18, gap: 10 },
+  cardTop: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
+  courseInfo: { flex: 1, gap: 4 },
+  courseCode: { color: '#6bd8cb', fontSize: 12, fontFamily: Fonts?.mono ?? 'system', letterSpacing: 2 },
+  courseName: {
+    color: '#dce2f7',
+    fontSize: 17,
+    fontFamily: Fonts?.primary ?? 'system',
+    fontWeight: 'bold',
+    lineHeight: 22,
+    paddingRight: 8,
+  },
+  chevronWrap: {
+    width: 32, height: 32, alignItems: 'center', justifyContent: 'center',
+    backgroundColor: 'rgba(61,73,71,0.15)', borderRadius: 10,
+  },
+
+  statsRow: { flexDirection: 'row', alignItems: 'center', gap: 8 },
+  statPill: {
+    paddingHorizontal: 8, paddingVertical: 3, borderRadius: 99,
+    backgroundColor: 'rgba(61,73,71,0.15)', borderWidth: 1, borderColor: 'rgba(61,73,71,0.25)',
+  },
+  statText: { color: '#879391', fontSize: 9, fontFamily: Fonts?.mono ?? 'system', letterSpacing: 1 },
+  signalDot: { width: 6, height: 6, borderRadius: 3, marginLeft: 4 },
+  signalLabel: { fontSize: 9, fontFamily: Fonts?.mono ?? 'system', letterSpacing: 1.5, fontWeight: 'bold' },
+
+  loadingRow: { flexDirection: 'row', gap: 8 },
+  shimmer: { height: 20, width: 72, borderRadius: 10, backgroundColor: 'rgba(61,73,71,0.15)' },
+
+  footer: { paddingTop: 24, alignItems: 'center' },
+  footerText: { color: '#3d4947', fontSize: 9, fontFamily: Fonts?.mono ?? 'system', letterSpacing: 2 },
 });

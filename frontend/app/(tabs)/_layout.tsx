@@ -1,20 +1,22 @@
 import { Tabs } from 'expo-router';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { MaterialIcons } from '@expo/vector-icons';
+import { StyleSheet, View } from 'react-native';
+import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
 
 import { HapticTab } from '@/components/haptic-tab';
 import { Fonts } from '@/constants/theme';
+import { useAuth } from '@/lib/auth-context';
 
 export default function TabLayout() {
+  const { user } = useAuth();
+
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: '#0D9488',
-        tabBarInactiveTintColor: '#4B5563',
+        tabBarActiveTintColor: '#6bd8cb',
+        tabBarInactiveTintColor: '#3d4947',
         headerShown: false,
-        tabBarButton: HapticTab,
-        tabBarStyle: styles.tabBar,
+        tabBarStyle: { display: 'none' },
         tabBarShowLabel: false,
       }}>
       <Tabs.Screen
@@ -22,7 +24,7 @@ export default function TabLayout() {
         options={{
           title: 'Home',
           tabBarIcon: ({ color, focused }) => (
-            <TabIcon name="home" label="Home" color={color} focused={focused} />
+            <TabIcon iconType="community" name="console" color={color} focused={focused} />
           ),
         }}
       />
@@ -31,7 +33,25 @@ export default function TabLayout() {
         options={{
           title: 'Circles',
           tabBarIcon: ({ color, focused }) => (
-            <TabIcon name="groups" label="Circles" color={color} focused={focused} />
+            <TabIcon iconType="material" name="timer" color={color} focused={focused} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="explore"
+        options={{
+          title: 'Leaderboard',
+          tabBarIcon: ({ color, focused }) => (
+            <TabIcon iconType="material" name="leaderboard" color={color} focused={focused} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="profile"
+        options={{
+          title: 'Settings',
+          tabBarIcon: ({ color, focused }) => (
+            <TabIcon iconType="material" name="settings" color={color} focused={focused} />
           ),
         }}
       />
@@ -40,16 +60,7 @@ export default function TabLayout() {
         options={{
           title: 'Map',
           tabBarIcon: ({ color, focused }) => (
-            <TabIcon name="map" label="Map" color={color} focused={focused} />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="profile"
-        options={{
-          title: 'Profile',
-          tabBarIcon: ({ color, focused }) => (
-            <TabIcon name="person" label="Profile" color={color} focused={focused} />
+            <TabIcon iconType="community" name="hub" color={color} focused={focused} />
           ),
         }}
       />
@@ -58,42 +69,74 @@ export default function TabLayout() {
 }
 
 function TabIcon({
+  iconType,
   name,
-  label,
   color,
   focused,
 }: {
-  name: React.ComponentProps<typeof MaterialIcons>['name'];
-  label: string;
+  iconType: 'material' | 'community';
+  name: string;
   color: string;
   focused: boolean;
 }) {
+  const iconSize = 24;
+
+  if (focused) {
+    return (
+      <View style={styles.activeIconPill}>
+        {iconType === 'community' ? (
+          <MaterialCommunityIcons name={name as any} size={iconSize} color="#6bd8cb" />
+        ) : (
+          <MaterialIcons name={name as any} size={iconSize} color="#6bd8cb" />
+        )}
+      </View>
+    );
+  }
+
   return (
-    <View style={styles.iconWrap}>
-      <MaterialIcons name={name} size={24} color={color} />
-      {focused && <Text style={styles.activeLabel}>{label}</Text>}
+    <View style={styles.inactiveIconWrap}>
+      {iconType === 'community' ? (
+        <MaterialCommunityIcons name={name as any} size={iconSize} color="#3d4947" />
+      ) : (
+        <MaterialIcons name={name as any} size={iconSize} color="#3d4947" />
+      )}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   tabBar: {
-    backgroundColor: '#0D1117',
-    borderTopWidth: 1,
-    borderTopColor: '#ffffff08',
-    height: 68,
-    paddingTop: 8,
+    backgroundColor: '#0c1322',
+    borderTopWidth: 0,
+    height: 84,
+    paddingTop: 10,
+    paddingBottom: 20,
+    elevation: 0,
+    borderTopLeftRadius: 32,
+    borderTopRightRadius: 32,
+    position: 'absolute',
+    // Neumorphic shadow (upward)
+    boxShadow: [
+      { offsetX: -4, offsetY: -4, blurRadius: 12, color: 'rgba(27,37,55,0.5)' },
+      { offsetX: 4, offsetY: 4, blurRadius: 12, color: '#080c14' },
+    ],
   },
-  iconWrap: {
+  activeIconPill: {
+    backgroundColor: '#141b2b',
+    borderRadius: 99,
+    paddingHorizontal: 16,
+    paddingVertical: 10,
     alignItems: 'center',
     justifyContent: 'center',
-    minWidth: 56,
+    // Neumorphic inset shadow
+    boxShadow: [
+      { offsetX: 4, offsetY: 4, blurRadius: 8, color: '#080c14', inset: true },
+      { offsetX: -4, offsetY: -4, blurRadius: 8, color: 'rgba(27,37,55,0.5)', inset: true },
+    ],
   },
-  activeLabel: {
-    marginTop: 2,
-    color: '#0D9488',
-    fontSize: 10,
-    fontWeight: '800',
-    fontFamily: Fonts.secondary,
+  inactiveIconWrap: {
+    padding: 12,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });

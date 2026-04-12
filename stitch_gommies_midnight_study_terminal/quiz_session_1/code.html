@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Study Session - Gommies</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Manrope:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary": "#003732",
+                        "surface-tint": "#6bd8cb",
+                        "tertiary-container": "#8791a3",
+                        "secondary-container": "#00a572",
+                        "background": "#0c1322",
+                        "primary-fixed": "#89f5e7",
+                        "on-secondary-container": "#00311f",
+                        "outline-variant": "#3d4947",
+                        "surface-variant": "#2e3545",
+                        "on-tertiary-fixed-variant": "#3d4756",
+                        "secondary": "#4edea3",
+                        "on-background": "#dce2f7",
+                        "tertiary": "#bdc7d9",
+                        "primary-fixed-dim": "#6bd8cb",
+                        "error": "#ffb4ab",
+                        "on-surface-variant": "#bcc9c6",
+                        "surface-container-lowest": "#070e1d",
+                        "inverse-surface": "#dce2f7",
+                        "tertiary-fixed-dim": "#bdc7d9",
+                        "primary": "#6bd8cb",
+                        "on-error": "#690005",
+                        "on-secondary-fixed": "#002113",
+                        "inverse-primary": "#006a61",
+                        "surface": "#0c1322",
+                        "surface-container-highest": "#2e3545",
+                        "surface-container-low": "#141b2b",
+                        "on-primary-fixed": "#00201d",
+                        "primary-container": "#29a195",
+                        "on-secondary": "#003824",
+                        "tertiary-fixed": "#d9e3f6",
+                        "error-container": "#93000a",
+                        "on-tertiary-fixed": "#121c2a",
+                        "surface-container-high": "#232a3a",
+                        "on-tertiary": "#27313f",
+                        "on-surface": "#dce2f7",
+                        "secondary-fixed": "#6ffbbe",
+                        "inverse-on-surface": "#293040",
+                        "outline": "#879391",
+                        "surface-container": "#191f2f",
+                        "on-error-container": "#ffdad6",
+                        "on-primary-container": "#00302b",
+                        "secondary-fixed-dim": "#4edea3",
+                        "on-tertiary-container": "#202a38",
+                        "on-primary-fixed-variant": "#005049",
+                        "on-secondary-fixed-variant": "#005236",
+                        "surface-dim": "#0c1322",
+                        "surface-bright": "#323949"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Space Grotesk"],
+                        "body": ["Manrope"],
+                        "label": ["Inter"],
+                        "mono": ["JetBrains Mono"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            background-color: #0c1322;
+            color: #dce2f7;
+            font-family: 'Manrope', sans-serif;
+        }
+        .neumorphic-card {
+            box-shadow: -4px -4px 12px rgba(27, 37, 55, 0.5), 4px 4px 12px #080c14;
+        }
+        .neumorphic-pill {
+            box-shadow: inset -2px -2px 6px rgba(27, 37, 55, 0.4), inset 2px 2px 6px #080c14;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="min-h-screen flex flex-col items-center">
+<!-- TopAppBar Anchor -->
+<header class="w-full top-0 sticky bg-[#0c1322] z-50">
+<div class="flex items-center px-6 py-4 w-full">
+<div class="flex-1 flex items-center gap-4">
+<button class="active:scale-95 transition-transform p-2 rounded-full hover:bg-[#232a3a]">
+<span class="material-symbols-outlined text-[#6bd8cb]" data-icon="arrow_back">arrow_back</span>
+</button>
+</div>
+<div class="flex-[2] text-center">
+<h1 class="font-['Space_Grotesk'] tracking-tight text-[#dce2f7] text-[18px] font-semibold">Binary Trees — Quick Quiz</h1>
+</div>
+<div class="flex-1"></div>
+</div>
+</header>
+<main class="w-full max-w-2xl px-6 pb-12 flex-1 flex flex-col items-center">
+<!-- Timer Pill -->
+<div class="mt-4 flex justify-center">
+<div class="neumorphic-pill bg-surface-container-low px-5 py-2 rounded-full flex items-center gap-2 border border-outline-variant/10">
+<span class="material-symbols-outlined text-secondary text-[18px]" data-icon="schedule">schedule</span>
+<span class="font-mono text-secondary font-extrabold tracking-wider text-[16px]">04:23</span>
+</div>
+</div>
+<!-- Question Card -->
+<div class="w-full mt-8 neumorphic-card bg-surface-container-low p-7 rounded-[24px] border border-outline-variant/5">
+<!-- Question Meta -->
+<div class="flex flex-col gap-3">
+<div class="flex justify-between items-center">
+<span class="font-mono text-[13px] uppercase tracking-widest text-outline font-bold">Question 2 of 5</span>
+<span class="font-mono text-[11px] text-secondary/80 font-bold">40% Complete</span>
+</div>
+<!-- Progress Bar -->
+<div class="h-1 w-full bg-surface-container-lowest rounded-full overflow-hidden">
+<div class="h-full bg-secondary w-[40%] rounded-full shadow-[0_0_8px_#4edea3]"></div>
+</div>
+</div>
+<!-- Question Text -->
+<div class="mt-8">
+<h2 class="text-[#dce2f7] text-[18px] font-semibold leading-[28px] font-headline">
+                    What is the time complexity of inserting into a balanced BST?
+                </h2>
+</div>
+<!-- Answer Options -->
+<div class="mt-8 flex flex-col gap-3">
+<!-- Option: Selected -->
+<button class="w-full text-left p-5 rounded-2xl bg-[#022c22] border-2 border-[#10b981] transition-all duration-300 group">
+<div class="flex items-center gap-4">
+<div class="w-6 h-6 rounded-full border-2 border-[#10b981] flex items-center justify-center">
+<div class="w-2.5 h-2.5 bg-[#10b981] rounded-full"></div>
+</div>
+<span class="text-[#10b981] font-bold font-mono text-[14px]">O(log n)</span>
+</div>
+</button>
+<!-- Option: Default -->
+<button class="w-full text-left p-5 rounded-2xl bg-surface-container-lowest border border-outline-variant/30 hover:border-primary/50 transition-all duration-300 group neumorphic-pill">
+<div class="flex items-center gap-4">
+<div class="w-6 h-6 rounded-full border-2 border-outline-variant group-hover:border-primary transition-colors"></div>
+<span class="text-on-surface font-medium font-mono text-[14px]">O(n)</span>
+</div>
+</button>
+<!-- Option: Default -->
+<button class="w-full text-left p-5 rounded-2xl bg-surface-container-lowest border border-outline-variant/30 hover:border-primary/50 transition-all duration-300 group neumorphic-pill">
+<div class="flex items-center gap-4">
+<div class="w-6 h-6 rounded-full border-2 border-outline-variant group-hover:border-primary transition-colors"></div>
+<span class="text-on-surface font-medium font-mono text-[14px]">O(1)</span>
+</div>
+</button>
+<!-- Option: Default -->
+<button class="w-full text-left p-5 rounded-2xl bg-surface-container-lowest border border-outline-variant/30 hover:border-primary/50 transition-all duration-300 group neumorphic-pill">
+<div class="flex items-center gap-4">
+<div class="w-6 h-6 rounded-full border-2 border-outline-variant group-hover:border-primary transition-colors"></div>
+<span class="text-on-surface font-medium font-mono text-[14px]">O(n log n)</span>
+</div>
+</button>
+</div>
+</div>
+<!-- Tip/Hint Asymmetric Content -->
+<div class="w-full mt-8 flex justify-start pl-2">
+<div class="max-w-[80%] border-l-2 border-primary-container pl-6 py-2">
+<span class="text-outline text-[12px] font-mono uppercase tracking-tighter block mb-1">Terminal Hint</span>
+<p class="text-on-surface-variant text-[14px] leading-relaxed italic">
+                    Recall that a balanced tree ensures the height remains logarithmic relative to the number of nodes.
+                </p>
+</div>
+</div>
+<!-- Action Area -->
+<div class="w-full mt-auto pt-12">
+<button class="w-full bg-gradient-to-br from-primary to-primary-container py-5 rounded-full shadow-lg active:scale-[0.98] transition-all">
+<span class="font-mono text-on-primary-fixed font-extrabold uppercase tracking-[0.1em] text-[16px]">Next Question</span>
+</button>
+<div class="mt-6 text-center">
+<button class="text-outline hover:text-primary transition-colors text-[13px] font-mono tracking-tighter uppercase">
+                    Skip this question
+                </button>
+</div>
+</div>
+</main>
+<!-- Visual Anchor Decorations -->
+<div class="fixed bottom-0 left-0 w-full h-32 bg-gradient-to-t from-background to-transparent pointer-events-none"></div>
+<div class="fixed top-20 -right-20 w-64 h-64 bg-primary/5 rounded-full blur-[100px] pointer-events-none"></div>
+<div class="fixed bottom-20 -left-20 w-48 h-48 bg-secondary/5 rounded-full blur-[80px] pointer-events-none"></div>
+</body></html>

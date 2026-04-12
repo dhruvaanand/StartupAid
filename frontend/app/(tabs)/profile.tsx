@@ -1,242 +1,422 @@
 import React from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Pressable, StyleSheet, Switch, Text, View } from 'react-native';
-import { MaterialIcons } from '@expo/vector-icons';
+import { Animated, Pressable, StyleSheet, Switch, Text, View, ScrollView } from 'react-native';
+import { ChevronRight, Flame, LogOut, Bell, Moon, Clock, Palette as PaletteIcon, Settings } from 'lucide-react-native';
 
-import { Fonts } from '@/constants/theme';
+import { Fonts, Palette } from '@/constants/theme';
 import { useHomeSupabase } from '@/hooks/use-home-supabase';
+import { useAuth } from '@/lib/auth-context';
+import { useTheme } from '@/context/theme-context';
+import { API_URL } from '@/constants/api';
 
 export default function ProfileScreen() {
   const { profileName, streakTarget, xp } = useHomeSupabase();
+  const { signOut } = useAuth();
+  const { scheme, toggleTheme } = useTheme();
+  const colors = Palette[scheme];
+  const [notificationsEnabled, setNotificationsEnabled] = React.useState(true);
+
+  const level = Math.max(1, Math.floor((xp ?? 0) / 150));
+  const focusHours = ((xp ?? 0) / 60).toFixed(1);
+  const userInitial = profileName ? profileName.charAt(0).toUpperCase() : 'U';
+
+  const handleNotificationToggle = async (val: boolean) => {
+    setNotificationsEnabled(val);
+    if (val) {
+      // Demo nudge as requested
+      try {
+        await fetch(`${API_URL}/social/nudge`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            sender_id: 'SYSTEM_TEJA', // Mock sender
+            receiver_id: 'ME', 
+            type: 'wave',
+            session_id: 'DEMO'
+          })
+        });
+      } catch (e) { /* silent */ }
+    }
+  };
 
   return (
-    <SafeAreaView style={styles.safe}>
-      <View style={styles.shell}>
-        <View style={styles.header}>
-          <View>
-            <Text style={styles.name}>{profileName}</Text>
-            <Text style={styles.handle}>Gommies student</Text>
+    <SafeAreaView style={[styles.safe, { backgroundColor: colors.background }]}>
+      <ScrollView
+        style={styles.shell}
+        contentContainerStyle={{ paddingBottom: 120 }}
+        showsVerticalScrollIndicator={false}
+      >
+        <Text style={[styles.screenTitle, { color: colors.text }]}>Profile</Text>
+
+        {/* ── PROFILE HEADER ── */}
+        <View style={styles.profileHeader}>
+          {/* Avatar + streak badge (bottom-RIGHT, matching Stitch) */}
+          <View style={styles.avatarWrap}>
+            <View style={[styles.avatarOuter, { shadowColor: colors.shadow }]}>
+              <View style={[styles.avatar, { backgroundColor: colors.surface, borderColor: `${colors.accent}40` }]}>
+                <Text style={[styles.avatarText, { color: colors.accent }]}>{userInitial}</Text>
+              </View>
+            </View>
+            {/* Streak badge — bottom-right, fire icon + JetBrains Mono */}
+            <View style={[styles.streakBadge, { backgroundColor: colors.surfaceSecondary, borderColor: colors.border }, { shadowColor: colors.shadow }]}>
+              <Flame size={14} color={colors.error} fill={colors.error} />
+              <View>
+                <Text style={[styles.streakBadgeValue, { color: colors.text }]}>{streakTarget} DAY</Text>
+                <Text style={[styles.streakBadgeLabel, { color: colors.text }]}>STREAK</Text>
+              </View>
+            </View>
           </View>
-          <View style={styles.levelBadge}>
-            <Text style={styles.levelLabel}>Level</Text>
-            <Text style={styles.levelValue}>{Math.max(1, Math.floor(xp / 150))}</Text>
+
+          <View style={styles.profileInfo}>
+            <Text style={[styles.profileName, { color: colors.text }]}>{profileName}</Text>
+            <Text style={[styles.profileRole, { color: colors.textSecondary }]}>Gommies Student</Text>
+            <View style={[styles.rankPill, { backgroundColor: colors.surfaceSecondary, borderColor: colors.border }]}>
+              <Text style={[styles.rankPillText, { color: colors.accent }]}>SENIOR FOCUS RANK</Text>
+            </View>
           </View>
         </View>
 
-        <View style={styles.streakCard}>
-          <View style={styles.streakRow}>
-            <MaterialIcons name="local-fire-department" size={24} color="#FB923C" />
-            <Text style={styles.streakValue}>{streakTarget} day streak</Text>
-          </View>
-          <Text style={styles.streakMeta}>
-            Keep it alive with at least one focus session a day.
-          </Text>
-        </View>
-
+        {/* ── STATS ROW — label ABOVE value (Stitch order) ── */}
         <View style={styles.statsRow}>
-          <View style={styles.statCard}>
-            <Text style={styles.statLabel}>Total XP</Text>
-            <Text style={styles.statValue}>{xp}</Text>
+          <View style={[styles.statBox, { backgroundColor: colors.surface, borderColor: colors.border, shadowColor: colors.shadow }]}>
+            {/* Label above value — matching Stitch */}
+            <Text style={[styles.statLabel, { color: colors.textSecondary }]}>FOCUS</Text>
+            <Text style={[styles.statValue, { color: colors.accent }]}>{focusHours}h</Text>
+            <Text style={[styles.statDelta, { color: colors.success }]}>+2.4h today</Text>
           </View>
-          <View style={styles.statCard}>
-            <Text style={styles.statLabel}>Semester hours</Text>
-            <Text style={styles.statValue}>12.4</Text>
+          <View style={[styles.statBox, { backgroundColor: colors.surface, borderColor: colors.border, shadowColor: colors.shadow }]}>
+            <Text style={[styles.statLabel, { color: colors.textSecondary }]}>EXPERIENCE</Text>
+            <Text style={[styles.statValue, { color: colors.accent }]}>{xp ?? 0}</Text>
+            <Text style={[styles.statDelta, { color: colors.success }]}>LVL {level}</Text>
           </View>
-          <View style={styles.statCard}>
-            <Text style={styles.statLabel}>Topics covered</Text>
-            <Text style={styles.statValue}>18</Text>
+          <View style={[styles.statBox, { backgroundColor: colors.surface, borderColor: colors.border, shadowColor: colors.shadow }]}>
+            <Text style={[styles.statLabel, { color: colors.textSecondary }]}>WAVES</Text>
+            <Text style={[styles.statValue, { color: colors.accent }]}>—</Text>
+            <Text style={[styles.statDelta, { color: colors.textSecondary }]}>Sessions</Text>
           </View>
         </View>
 
-        <Text style={styles.sectionTitle}>Settings</Text>
-
-        <View style={styles.settingRow}>
-          <View>
-            <Text style={styles.settingLabel}>Notifications</Text>
-            <Text style={styles.settingHint}>
-              Session reminders, circle nudges, and streak alerts.
-            </Text>
+        {/* ── PREFERENCES ── */}
+        <View style={styles.prefSection}>
+          <View style={styles.prefHeader}>
+            <Text style={[styles.prefTitle, { color: colors.textSecondary }]}>YOUR PREFERENCES</Text>
+            <Text style={[styles.prefSubtitle, { color: colors.textSecondary }]}>Optimize your focus environment</Text>
           </View>
-          <Switch value thumbColor="#0D9488" onValueChange={() => {}} />
+
+          <View style={styles.settingsList}>
+            <SettingRow
+              icon={<Bell size={18} color={colors.accent} />}
+              label="Notifications"
+              hint="System alerts & updates"
+              control={
+                <Switch
+                  value={notificationsEnabled}
+                  trackColor={{ false: colors.border, true: colors.accent }}
+                  thumbColor={colors.textSecondary}
+                  onValueChange={handleNotificationToggle}
+                />
+              }
+            />
+            <SettingRow
+              icon={<Moon size={18} color={colors.accent} />}
+              label="Nocturnal Mode"
+              hint="Deep space contrast UI"
+              control={
+                <Switch
+                  value={scheme === 'dark'}
+                  trackColor={{ false: colors.border, true: colors.accent }}
+                  thumbColor={colors.textSecondary}
+                  onValueChange={toggleTheme}
+                />
+              }
+            />
+            <SettingRow
+              icon={<Clock size={18} color={colors.accent} />}
+              label="Study Reminders"
+              hint="Daily focus nudge"
+              control={<ChevronRight size={20} color={colors.textSecondary} />}
+              onPress={() => {}}
+            />
+            <SettingRow
+              icon={<PaletteIcon size={18} color={colors.accent} />}
+              label="Visual Themes"
+              hint="Customize terminal colors"
+              control={<ChevronRight size={20} color={colors.textSecondary} />}
+              onPress={() => {}}
+              last
+            />
+          </View>
         </View>
 
-        <View style={styles.settingRow}>
-          <View>
-            <Text style={styles.settingLabel}>Circle visibility</Text>
-            <Text style={styles.settingHint}>Let your circles see when you&apos;re focusing.</Text>
-          </View>
-          <Switch value thumbColor="#0D9488" onValueChange={() => {}} />
-        </View>
-
-        <View style={styles.settingRow}>
-          <View>
-            <Text style={styles.settingLabel}>Courses this semester</Text>
-            <Text style={styles.settingHint}>
-              Update which courses should show circles + maps.
-            </Text>
-          </View>
-          <MaterialIcons name="chevron-right" size={22} color="#64748B" />
-        </View>
-
-        <View style={styles.settingRow}>
-          <View>
-            <Text style={styles.settingLabel}>Campus</Text>
-            <Text style={styles.settingHint}>Change your campus to see different circles.</Text>
-          </View>
-          <MaterialIcons name="chevron-right" size={22} color="#64748B" />
-        </View>
-
-        <Pressable style={styles.signOutRow} onPress={() => {}}>
-          <MaterialIcons name="logout" size={20} color="#F97316" />
-          <Text style={styles.signOutText}>Sign out</Text>
+        {/* ── SIGN OUT ── */}
+        <Pressable style={[styles.signOutBtn, { backgroundColor: `${colors.error}10`, borderColor: `${colors.error}20` }]} onPress={() => void signOut()}>
+          <LogOut size={18} color={colors.error} />
+          <Text style={[styles.signOutText, { color: colors.error }]}>SIGN OUT SYSTEM</Text>
         </Pressable>
-      </View>
+
+        {/* ── BUILD INFO ── */}
+        <Text style={[styles.buildText, { color: colors.textSecondary }]}>BUILD VERSION 1.0.4 · {scheme === 'dark' ? 'NOCTURNAL' : 'LIGHT'} EDITION</Text>
+
+      </ScrollView>
     </SafeAreaView>
   );
 }
 
+function SettingRow({
+  icon,
+  label,
+  hint,
+  control,
+  onPress,
+  last = false,
+}: {
+  icon: React.ReactNode;
+  label: string;
+  hint: string;
+  control: React.ReactNode;
+  onPress?: () => void;
+  last?: boolean;
+}) {
+  const { scheme } = useTheme();
+  const colors = Palette[scheme];
+  const pressScale = React.useRef(new Animated.Value(1)).current;
+
+  const handlePressIn = () => {
+    Animated.spring(pressScale, { toValue: 0.98, useNativeDriver: true, speed: 100, bounciness: 0 }).start();
+  };
+  const handlePressOut = () => {
+    Animated.spring(pressScale, { toValue: 1, useNativeDriver: true, speed: 100, bounciness: 0 }).start();
+  };
+
+  const inner = (
+    <Animated.View style={[
+      styles.settingRow,
+      { borderBottomColor: colors.border },
+      last && { borderBottomWidth: 0 },
+      onPress && { transform: [{ scale: pressScale }] },
+    ]}>
+      <View style={[styles.settingIconContainer, { backgroundColor: colors.surfaceSecondary, shadowColor: colors.shadow }]}>
+        {icon}
+      </View>
+      <View style={styles.settingText}>
+        <Text style={[styles.settingLabel, { color: colors.text }]}>{label}</Text>
+        <Text style={[styles.settingHint, { color: colors.textSecondary }]}>{hint}</Text>
+      </View>
+      <View style={styles.settingControl}>{control}</View>
+    </Animated.View>
+  );
+
+  if (onPress) {
+    return (
+      <Pressable onPress={onPress} onPressIn={handlePressIn} onPressOut={handlePressOut}>
+        {inner}
+      </Pressable>
+    );
+  }
+
+  return inner;
+}
+
 const styles = StyleSheet.create({
-  safe: {
-    flex: 1,
-    backgroundColor: '#111827',
+  safe: { flex: 1, backgroundColor: '#0c1322' },
+  shell: { flex: 1, paddingHorizontal: 24, paddingTop: 20 },
+
+  // Neumorphic card helper
+  neumorphicCard: {
+    boxShadow: [
+      { offsetX: -4, offsetY: -4, blurRadius: 12, color: 'rgba(27,37,55,0.5)' },
+      { offsetX: 4, offsetY: 4, blurRadius: 12, color: '#080c14' },
+    ],
   },
-  shell: {
-    flex: 1,
-    backgroundColor: '#111827',
-    paddingHorizontal: 16,
-    paddingTop: 18,
-    paddingBottom: 12,
+
+  screenTitle: {
+    color: '#dce2f7',
+    fontSize: 32,
+    fontFamily: Fonts?.primary ?? 'system',
+    fontWeight: 'bold',
+    letterSpacing: -0.5,
+    marginBottom: 32,
   },
-  header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+
+  // Profile header
+  profileHeader: { flexDirection: 'row', alignItems: 'flex-start', gap: 24, marginBottom: 32 },
+  avatarWrap: { position: 'relative' },
+  avatarOuter: {
+    borderRadius: 99,
+  },
+  avatar: {
+    width: 96,
+    height: 96,
+    borderRadius: 48,
+    backgroundColor: '#141b2b',
     alignItems: 'center',
+    justifyContent: 'center',
+    padding: 4,
+    borderWidth: 1,
+    borderColor: 'rgba(107,216,203,0.1)',
   },
-  name: {
-    color: '#FFFFFF',
-    fontSize: 22,
-    fontWeight: '900',
-    fontFamily: Fonts.primary,
-  },
-  handle: {
-    color: '#94A3B8',
-    fontSize: 13,
-    fontWeight: '700',
-    fontFamily: Fonts.secondary,
-  },
-  levelBadge: {
+  avatarText: { color: '#6bd8cb', fontSize: 36, fontFamily: Fonts?.primary ?? 'system' },
+  // Streak badge — BOTTOM-RIGHT (not bottom-left)
+  streakBadge: {
+    position: 'absolute',
+    bottom: -4,
+    right: -4,
+    backgroundColor: '#2e3545',
+    borderRadius: 999,
     paddingHorizontal: 10,
     paddingVertical: 6,
-    borderRadius: 999,
-    backgroundColor: '#022C22',
+    flexDirection: 'row',
     alignItems: 'center',
+    gap: 4,
+    borderWidth: 1,
+    borderColor: 'rgba(61,73,71,0.2)',
+    boxShadow: [{ offsetX: 0, offsetY: 4, blurRadius: 8, color: 'rgba(0,0,0,0.4)' }],
   },
-  levelLabel: {
-    color: '#A7F3D0',
+  streakBadgeValue: {
+    color: '#dce2f7',
     fontSize: 10,
-    fontWeight: '800',
-    fontFamily: Fonts.secondary,
+    fontFamily: Fonts?.mono ?? 'system',
+    fontWeight: 'bold',
+    letterSpacing: 0.5,
   },
-  levelValue: {
-    color: '#FFFFFF',
-    fontSize: 16,
-    fontWeight: '900',
-    fontFamily: Fonts.primary,
+  streakBadgeLabel: {
+    color: '#dce2f7',
+    fontSize: 10,
+    fontFamily: Fonts?.mono ?? 'system',
+    fontWeight: 'bold',
+    letterSpacing: 0.5,
   },
-  streakCard: {
-    marginTop: 16,
-    backgroundColor: '#020617',
-    borderRadius: 22,
-    paddingVertical: 14,
-    paddingHorizontal: 14,
+
+  profileInfo: { flex: 1, gap: 4, paddingTop: 8 },
+  profileName: {
+    color: '#dce2f7',
+    fontSize: 24,
+    fontFamily: Fonts?.primary ?? 'system',
+    fontWeight: 'bold',
+    letterSpacing: -0.5,
+  },
+  profileRole: { color: '#bcc9c6', fontSize: 13, fontFamily: Fonts?.label ?? 'system', letterSpacing: 0.5 },
+  rankPill: {
+    alignSelf: 'flex-start',
+    backgroundColor: '#2e3545',
+    borderRadius: 4,
+    paddingHorizontal: 8,
+    paddingVertical: 3,
+    marginTop: 6,
     borderWidth: 1,
-    borderColor: '#1E293B',
+    borderColor: 'rgba(61,73,71,0.1)',
   },
-  streakRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
+  rankPillText: {
+    color: '#6bd8cb',
+    fontSize: 9,
+    fontFamily: Fonts?.mono ?? 'system',
+    letterSpacing: 2,
+    textTransform: 'uppercase',
+    fontWeight: 'bold',
   },
-  streakValue: {
-    color: '#FFFFFF',
-    fontSize: 18,
-    fontWeight: '900',
-    fontFamily: Fonts.primary,
-  },
-  streakMeta: {
-    marginTop: 4,
-    color: '#94A3B8',
-    fontSize: 13,
-    fontWeight: '700',
-    fontFamily: Fonts.secondary,
-  },
-  statsRow: {
-    marginTop: 16,
-    flexDirection: 'row',
-    gap: 8,
-  },
-  statCard: {
+
+  // Stats — label ABOVE value
+  statsRow: { flexDirection: 'row', gap: 12, marginBottom: 40 },
+  statBox: {
     flex: 1,
-    backgroundColor: '#020617',
+    backgroundColor: '#141b2b',
     borderRadius: 18,
-    paddingVertical: 10,
-    paddingHorizontal: 10,
+    paddingVertical: 16,
+    paddingHorizontal: 12,
+    gap: 2,
     borderWidth: 1,
-    borderColor: '#1E293B',
+    borderColor: 'rgba(61,73,71,0.05)',
   },
+  // Label renders FIRST (above value) — matching Stitch structure
   statLabel: {
-    color: '#94A3B8',
-    fontSize: 11,
-    fontWeight: '700',
-    fontFamily: Fonts.secondary,
+    color: '#bcc9c6',
+    fontSize: 10,
+    fontFamily: Fonts?.mono ?? 'system',
+    letterSpacing: 2,
+    textTransform: 'uppercase',
   },
   statValue: {
+    color: '#6bd8cb',
+    fontSize: 20,
+    fontFamily: Fonts?.mono ?? 'system',
+    fontWeight: 'bold',
     marginTop: 4,
-    color: '#FFFFFF',
-    fontSize: 18,
-    fontWeight: '900',
-    fontFamily: Fonts.primary,
   },
-  sectionTitle: {
-    marginTop: 22,
-    marginBottom: 8,
-    color: '#FFFFFF',
-    fontSize: 16,
-    fontWeight: '900',
-    fontFamily: Fonts.primary,
+  statDelta: {
+    color: '#4edea3',
+    fontSize: 10,
+    fontFamily: Fonts?.mono ?? 'system',
   },
+
+  // Preferences
+  prefSection: { gap: 24, marginBottom: 32 },
+  prefHeader: { gap: 4 },
+  prefTitle: {
+    color: '#bcc9c6',
+    fontSize: 10,
+    fontFamily: Fonts?.mono ?? 'system',
+    letterSpacing: 3,
+    textTransform: 'uppercase',
+    fontWeight: 'bold',
+  },
+  prefSubtitle: { color: '#3d4947', fontSize: 13, fontFamily: Fonts?.body ?? 'system', marginTop: 2 },
+
+  settingsList: { gap: 0 },
   settingRow: {
-    paddingVertical: 10,
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
+    paddingVertical: 16,
+    borderBottomWidth: 1,
+    borderBottomColor: 'rgba(61,73,71,0.3)',
+    gap: 16,
   },
-  settingLabel: {
-    color: '#E5E7EB',
-    fontSize: 14,
-    fontWeight: '800',
-    fontFamily: Fonts.secondary,
+  // Circular neumorphic-inset icon container — MATCHING STITCH
+  settingIconContainer: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    backgroundColor: '#232a3a',
+    alignItems: 'center',
+    justifyContent: 'center',
+    // Neumorphic inset
+    boxShadow: [
+      { offsetX: 4, offsetY: 4, blurRadius: 8, color: '#080c14', inset: true },
+      { offsetX: -4, offsetY: -4, blurRadius: 8, color: 'rgba(27,37,55,0.5)', inset: true },
+    ],
   },
-  settingHint: {
-    color: '#64748B',
-    fontSize: 12,
-    fontWeight: '700',
-    fontFamily: Fonts.secondary,
-    marginTop: 2,
-    maxWidth: 230,
-  },
-  signOutRow: {
-    marginTop: 20,
+  settingText: { flex: 1, gap: 2 },
+  settingLabel: { color: '#dce2f7', fontSize: 15, fontFamily: Fonts?.bodyMedium ?? 'system', fontWeight: '500' },
+  settingHint: { color: '#bcc9c6', fontSize: 12, fontFamily: Fonts?.body ?? 'system' },
+  settingControl: {},
+
+  // Sign out — error styling
+  signOutBtn: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 8,
+    justifyContent: 'center',
+    gap: 12,
+    borderRadius: 18,
+    paddingVertical: 16,
+    borderWidth: 1,
+    borderColor: 'rgba(255,180,171,0.2)',
+    backgroundColor: 'rgba(255,180,171,0.05)',
+    marginBottom: 24,
   },
   signOutText: {
-    color: '#F97316',
-    fontSize: 14,
-    fontWeight: '800',
-    fontFamily: Fonts.secondary,
+    color: '#ffb4ab',
+    fontSize: 13,
+    fontFamily: Fonts?.primary ?? 'system',
+    letterSpacing: 2.5,
+    fontWeight: 'bold',
+    textTransform: 'uppercase',
+  },
+
+  buildText: {
+    color: '#bcc9c6',
+    fontSize: 10,
+    fontFamily: Fonts?.mono ?? 'system',
+    letterSpacing: 2,
+    textAlign: 'center',
+    opacity: 0.4,
   },
 });
-
-

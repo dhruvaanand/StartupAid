@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>GOMMIES - Login</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&amp;family=Manrope:wght@200..800&amp;family=JetBrains+Mono:wght@100..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "tertiary-container": "#8791a3",
+                      "secondary-container": "#00a572",
+                      "background": "#0c1322",
+                      "surface-tint": "#6bd8cb",
+                      "on-primary": "#003732",
+                      "surface-variant": "#2e3545",
+                      "outline-variant": "#3d4947",
+                      "primary-fixed": "#89f5e7",
+                      "on-secondary-container": "#00311f",
+                      "primary-fixed-dim": "#6bd8cb",
+                      "tertiary": "#bdc7d9",
+                      "secondary": "#4edea3",
+                      "on-background": "#dce2f7",
+                      "on-tertiary-fixed-variant": "#3d4756",
+                      "on-secondary-fixed": "#002113",
+                      "tertiary-fixed-dim": "#bdc7d9",
+                      "primary": "#6bd8cb",
+                      "on-error": "#690005",
+                      "surface-container-lowest": "#070e1d",
+                      "inverse-surface": "#dce2f7",
+                      "on-surface-variant": "#bcc9c6",
+                      "error": "#ffb4ab",
+                      "surface-container-low": "#141b2b",
+                      "on-primary-fixed": "#00201d",
+                      "surface-container-highest": "#2e3545",
+                      "surface": "#0c1322",
+                      "inverse-primary": "#006a61",
+                      "surface-container-high": "#232a3a",
+                      "on-tertiary-fixed": "#121c2a",
+                      "tertiary-fixed": "#d9e3f6",
+                      "error-container": "#93000a",
+                      "primary-container": "#29a195",
+                      "on-secondary": "#003824",
+                      "on-primary-container": "#00302b",
+                      "surface-container": "#191f2f",
+                      "on-error-container": "#ffdad6",
+                      "outline": "#879391",
+                      "secondary-fixed": "#6ffbbe",
+                      "inverse-on-surface": "#293040",
+                      "on-tertiary": "#27313f",
+                      "on-surface": "#dce2f7",
+                      "surface-dim": "#0c1322",
+                      "surface-bright": "#323949",
+                      "on-secondary-fixed-variant": "#005236",
+                      "secondary-fixed-dim": "#4edea3",
+                      "on-tertiary-container": "#202a38",
+                      "on-primary-fixed-variant": "#005049"
+              },
+              "borderRadius": {
+                      "DEFAULT": "1rem",
+                      "lg": "2rem",
+                      "xl": "3rem",
+                      "full": "9999px"
+              },
+              "fontFamily": {
+                      "headline": ["Space Grotesk"],
+                      "body": ["Manrope"],
+                      "label": ["Inter"],
+                      "mono": ["JetBrains Mono"]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+        .neumorphic-card {
+            background-color: #1F2937;
+            box-shadow: -8px -8px 20px rgba(43, 57, 77, 0.5), 8px 8px 20px #131a23;
+            border-radius: 24px;
+        }
+        .inset-input {
+            background-color: #111827;
+            box-shadow: inset 4px 4px 8px rgba(0, 0, 0, 0.4), inset -4px -4px 8px rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+        }
+        .text-glow-teal {
+            text-shadow: 0 0 15px rgba(16, 185, 129, 0.4);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-[#111827] font-body text-on-surface min-h-screen flex flex-col items-center justify-center p-6">
+<!-- Login Container -->
+<main class="w-full max-w-md flex flex-col items-center justify-center min-h-screen">
+<!-- Neumorphic Login Card -->
+<div class="neumorphic-card w-full p-10 flex flex-col items-center justify-center">
+<!-- Brand Logo -->
+<img alt="GOMMIES Logo" class="h-32 w-auto mb-6 object-contain mx-auto" src="https://lh3.googleusercontent.com/aida/ADBb0uiX6fsQc2MQLBUSbds6NxeEfM1uvI5nsKbmk1d3pj0G6HXa4TrPNCP-gCyoDZycOuXvJGD-oCLd1sctD5sEANkRnFXQ6i9J377jMh_1Ckgb0Zd66HXxZypl0j-oKO0bjLW8--X4CwRwRY7mn-TUiucnKC11kpFBy0vJSVZErUcmHO0bnMSV23v3xG8_W1VVTb0mvlNiqoLT_9KU-oVNpeOt5prLx12wNrnsE-Q13O7nRqdEMKDmgXm0Yi-My7WqxQHPqX9DxOTFVQ"/>
+<!-- Subtitle -->
+<p class="text-[#94A3B8] font-body text-sm mb-10 tracking-tight text-center mx-auto">
+                Sign in with student email
+            </p>
+<!-- Form Content -->
+<div class="w-full space-y-6 flex flex-col items-center">
+<!-- Email Entry Field -->
+<div class="relative w-full group">
+<input class="inset-input w-full py-4 pr-4 border-none text-[#dce2f7] placeholder-[#94A3B8] focus:ring-2 focus:ring-[#0D9488]/50 transition-all font-mono text-sm text-center px-4" placeholder="Enter student email" type="email"/>
+</div>
+<!-- Action Button -->
+<button class="w-full bg-[#0D9488] hover:bg-[#10B981] text-white font-mono font-black py-4 rounded-[16px] tracking-widest uppercase transition-all active:scale-95 shadow-lg shadow-[#0D9488]/20 flex items-center justify-center">
+                    SEND CODE
+                </button>
+<!-- Back Link -->
+<div class="flex justify-center pt-2">
+<a class="text-[#64748B] hover:text-[#dce2f7] text-xs font-mono tracking-wide transition-colors flex items-center gap-2" href="#">
+<span class="material-symbols-outlined text-sm">arrow_back_ios</span>
+                        Wrong email? Go back
+                    </a>
+</div>
+</div>
+</div>
+<!-- Dev Mode Toggle Footer -->
+<div class="w-full flex items-center justify-center gap-4 py-4 border-t border-[#3d4947]/20 mt-8">
+<span class="text-[#64748B] font-mono text-[10px] tracking-[0.2em] uppercase">Dev Mode</span>
+<button class="relative inline-flex h-5 w-10 shrink-0 cursor-pointer rounded-full border-2 border-transparent bg-[#1F2937] transition-colors duration-200 focus:outline-none ring-1 ring-[#3d4947]">
+<span class="translate-x-0 pointer-events-none inline-block h-4 w-4 transform rounded-full bg-[#64748B] shadow ring-0 transition duration-200"></span>
+</button>
+</div>
+</main>
+<!-- Decoration / Ambient Background Elements -->
+<div class="fixed top-[-10%] right-[-10%] w-[500px] h-[500px] bg-[#6bd8cb]/5 blur-[120px] rounded-full -z-10 pointer-events-none"></div>
+<div class="fixed bottom-[-10%] left-[-10%] w-[400px] h-[400px] bg-[#4edea3]/5 blur-[100px] rounded-full -z-10 pointer-events-none"></div>
+</body></html>

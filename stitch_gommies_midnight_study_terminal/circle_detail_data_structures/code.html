@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;800&amp;family=Manrope:wght@300;400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;700&amp;family=Inter:wght@400;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface": "#0c1322",
+                        "surface-container-highest": "#2e3545",
+                        "surface-container-low": "#141b2b",
+                        "on-primary-fixed": "#00201d",
+                        "inverse-primary": "#006a61",
+                        "tertiary-fixed": "#d9e3f6",
+                        "error-container": "#93000a",
+                        "on-tertiary-fixed": "#121c2a",
+                        "surface-container-high": "#232a3a",
+                        "primary-container": "#29a195",
+                        "on-secondary": "#003824",
+                        "surface-container": "#191f2f",
+                        "on-error-container": "#ffdad6",
+                        "on-primary-container": "#00302b",
+                        "on-tertiary": "#27313f",
+                        "on-surface": "#dce2f7",
+                        "secondary-fixed": "#6ffbbe",
+                        "inverse-on-surface": "#293040",
+                        "outline": "#879391",
+                        "secondary-fixed-dim": "#4edea3",
+                        "on-tertiary-container": "#202a38",
+                        "on-primary-fixed-variant": "#005049",
+                        "on-secondary-fixed-variant": "#005236",
+                        "surface-dim": "#0c1322",
+                        "surface-bright": "#323949",
+                        "surface-tint": "#6bd8cb",
+                        "tertiary-container": "#8791a3",
+                        "secondary-container": "#00a572",
+                        "background": "#0c1322",
+                        "on-primary": "#003732",
+                        "surface-variant": "#2e3545",
+                        "primary-fixed": "#89f5e7",
+                        "on-secondary-container": "#00311f",
+                        "outline-variant": "#3d4947",
+                        "primary-fixed-dim": "#6bd8cb",
+                        "on-tertiary-fixed-variant": "#3d4756",
+                        "secondary": "#4edea3",
+                        "on-background": "#dce2f7",
+                        "tertiary": "#bdc7d9",
+                        "tertiary-fixed-dim": "#bdc7d9",
+                        "primary": "#6bd8cb",
+                        "on-error": "#690005",
+                        "on-secondary-fixed": "#002113",
+                        "error": "#ffb4ab",
+                        "on-surface-variant": "#bcc9c6",
+                        "surface-container-lowest": "#070e1d",
+                        "inverse-surface": "#dce2f7"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Space Grotesk"],
+                        "body": ["Manrope"],
+                        "label": ["Inter"],
+                        "mono": ["JetBrains Mono"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .neumorphic-card {
+            background: #141b2b;
+            box-shadow: -4px -4px 12px rgba(27, 37, 55, 0.4), 4px 4px 12px #080c14;
+        }
+        .neumorphic-inset {
+            background: #0c1322;
+            box-shadow: inset -2px -2px 6px rgba(27, 37, 55, 0.3), inset 2px 2px 6px #080c14;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface font-body min-h-screen selection:bg-primary selection:text-on-primary">
+<!-- Top Navigation Anchor -->
+<header class="w-full sticky top-0 z-50 bg-[#0c1322] shadow-[-4px_-4px_12px_rgba(27,37,55,0.5),4px_4px_12px_#080c14]">
+<div class="flex items-center justify-between px-6 py-4 w-full">
+<div class="flex items-center gap-4">
+<button class="active:scale-95 transition-transform text-[#6bd8cb] hover:bg-[#232a3a] p-2 rounded-full">
+<span class="material-symbols-outlined">arrow_back</span>
+</button>
+<div class="flex flex-col">
+<h1 class="font-['Space_Grotesk'] text-xl font-extrabold tracking-tight text-[#dce2f7]">Data Structures</h1>
+<span class="font-['JetBrains_Mono'] text-[10px] text-secondary tracking-widest uppercase">CS1.201</span>
+</div>
+</div>
+<button class="active:scale-95 transition-transform text-[#dce2f7] hover:bg-[#232a3a] p-2 rounded-full">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+</header>
+<main class="px-6 py-8 pb-32 space-y-12">
+<!-- Section 1: In Session Now -->
+<section aria-label="Active Members">
+<h2 class="font-mono text-xs font-bold tracking-[0.2em] text-outline mb-6 uppercase">IN SESSION NOW</h2>
+<div class="flex gap-6 overflow-x-auto pb-6 -mx-6 px-6 no-scrollbar">
+<!-- Member Card 1 -->
+<div class="neumorphic-card flex-shrink-0 w-48 p-5 rounded-DEFAULT border border-white/5 relative group">
+<div class="absolute top-4 right-4 w-2 h-2 rounded-full bg-secondary shadow-[0_0_8px_#4edea3] animate-pulse"></div>
+<div class="w-12 h-12 rounded-full neumorphic-inset flex items-center justify-center mb-4 overflow-hidden border border-primary/20">
+<span class="font-headline font-bold text-primary">JD</span>
+</div>
+<div class="space-y-1">
+<p class="font-headline font-bold text-sm">Jordan D.</p>
+<p class="font-mono text-[10px] text-outline">32m elapsed</p>
+<div class="pt-2">
+<span class="text-secondary font-mono text-[11px]">B-Tree Deletion</span>
+</div>
+</div>
+</div>
+<!-- Member Card 2 -->
+<div class="neumorphic-card flex-shrink-0 w-48 p-5 rounded-DEFAULT border border-white/5 relative group">
+<div class="absolute top-4 right-4 w-2 h-2 rounded-full bg-secondary shadow-[0_0_8px_#4edea3] animate-pulse"></div>
+<div class="w-12 h-12 rounded-full neumorphic-inset flex items-center justify-center mb-4 overflow-hidden border border-primary/20">
+<span class="font-headline font-bold text-primary">SC</span>
+</div>
+<div class="space-y-1">
+<p class="font-headline font-bold text-sm">Sarah C.</p>
+<p class="font-mono text-[10px] text-outline">18m elapsed</p>
+<div class="pt-2">
+<span class="text-secondary font-mono text-[11px]">Graph Traversal</span>
+</div>
+</div>
+</div>
+<!-- Member Card 3 -->
+<div class="neumorphic-card flex-shrink-0 w-48 p-5 rounded-DEFAULT border border-white/5 relative group">
+<div class="absolute top-4 right-4 w-2 h-2 rounded-full bg-secondary shadow-[0_0_8px_#4edea3] animate-pulse"></div>
+<div class="w-12 h-12 rounded-full neumorphic-inset flex items-center justify-center mb-4 overflow-hidden border border-primary/20">
+<span class="font-headline font-bold text-primary">MK</span>
+</div>
+<div class="space-y-1">
+<p class="font-headline font-bold text-sm">Mike K.</p>
+<p class="font-mono text-[10px] text-outline">05m elapsed</p>
+<div class="pt-2">
+<span class="text-secondary font-mono text-[11px]">Heap Sort</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Section 2: Vault -->
+<section aria-label="Digital Vault">
+<div class="flex items-center justify-between mb-6">
+<h2 class="font-mono text-xs font-bold tracking-[0.2em] text-outline uppercase">VAULT</h2>
+<span class="font-mono text-[10px] text-primary">3 FILES</span>
+</div>
+<div class="space-y-6">
+<!-- PDF Card 1 -->
+<div class="neumorphic-card rounded-[1rem] p-4 flex items-center justify-between group hover:bg-surface-container-high transition-colors border border-white/5">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">picture_as_pdf</span>
+</div>
+<div>
+<h3 class="font-body font-medium text-sm text-on-surface">AVL_Trees_Mastery.pdf</h3>
+<div class="flex gap-3 font-mono text-[10px] text-outline mt-1">
+<span>2.4 MB</span>
+<span>2h ago</span>
+</div>
+</div>
+</div>
+<button class="px-5 py-1.5 rounded-full border border-primary text-primary font-mono text-[10px] hover:bg-primary hover:text-on-primary-fixed transition-all active:scale-95">
+                        OPEN
+                    </button>
+</div>
+<!-- PDF Card 2 -->
+<div class="neumorphic-card rounded-[1rem] p-4 flex items-center justify-between group hover:bg-surface-container-high transition-colors border border-white/5">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">picture_as_pdf</span>
+</div>
+<div>
+<h3 class="font-body font-medium text-sm text-on-surface">Red_Black_Properties.pdf</h3>
+<div class="flex gap-3 font-mono text-[10px] text-outline mt-1">
+<span>1.8 MB</span>
+<span>Yesterday</span>
+</div>
+</div>
+</div>
+<button class="px-5 py-1.5 rounded-full border border-primary text-primary font-mono text-[10px] hover:bg-primary hover:text-on-primary-fixed transition-all active:scale-95">
+                        OPEN
+                    </button>
+</div>
+<!-- Upload Tray -->
+<button class="w-full py-8 border-2 border-dashed border-outline-variant rounded-DEFAULT flex flex-col items-center justify-center gap-2 hover:bg-surface-container-low transition-all group">
+<div class="flex items-center gap-2 text-outline group-hover:text-primary transition-colors">
+<span class="material-symbols-outlined">upload_file</span>
+<span class="font-mono text-xs font-bold uppercase tracking-wider">+ Upload PDF</span>
+</div>
+<span class="font-mono text-[9px] text-outline/50">MAX 20MB PER FILE</span>
+</button>
+</div>
+</section>
+<!-- Section 3: Quizzes -->
+<section aria-label="Recent Quizzes">
+<h2 class="font-mono text-xs font-bold tracking-[0.2em] text-outline mb-6 uppercase">QUIZZES</h2>
+<div class="space-y-4">
+<!-- Quiz Row 1 -->
+<div class="flex items-center justify-between py-4 border-b border-outline-variant/10">
+<div>
+<h4 class="font-headline font-bold text-[15px] text-on-surface">Weekly Hash Table Review</h4>
+<p class="font-mono text-[10px] text-outline mt-1">CLOSES IN 4H 20M</p>
+</div>
+<button class="px-4 py-2 rounded-full border border-primary/40 text-primary font-mono text-[10px] font-bold uppercase hover:bg-primary/5 transition-colors">
+                        Open Quiz
+                    </button>
+</div>
+<!-- Quiz Row 2 -->
+<div class="flex items-center justify-between py-4 border-b border-outline-variant/10">
+<div>
+<h4 class="font-headline font-bold text-[15px] text-on-surface">Dynamic Programming Basics</h4>
+<p class="font-mono text-[10px] text-outline mt-1">COMPLETED</p>
+</div>
+<div class="w-8 h-8 rounded-full bg-secondary/10 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Floating Action Button -->
+<button class="fixed bottom-32 right-6 w-14 h-14 rounded-full bg-gradient-to-br from-primary to-primary-container shadow-[0_12px_24px_rgba(0,0,0,0.4)] flex items-center justify-center text-on-primary-fixed active:scale-90 transition-transform z-50">
+<span class="material-symbols-outlined">person_add</span>
+</button>
+<!-- Bottom Navigation Shell -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-8 pt-4 bg-[#0c1322]/70 backdrop-blur-xl rounded-t-[2rem] shadow-[0_-12px_24px_rgba(0,0,0,0.4)]">
+<a class="flex flex-col items-center justify-center text-[#dce2f7]/50 hover:text-[#4edea3] transition-all active:translate-y-1" href="#">
+<span class="material-symbols-outlined" data-icon="timer">timer</span>
+<span class="font-['JetBrains_Mono'] text-[10px] uppercase tracking-widest mt-1">Focus</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#dce2f7]/50 hover:text-[#4edea3] transition-all active:translate-y-1" href="#">
+<span class="material-symbols-outlined" data-icon="folder_open">folder_open</span>
+<span class="font-['JetBrains_Mono'] text-[10px] uppercase tracking-widest mt-1">Vault</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#dce2f7]/50 hover:text-[#4edea3] transition-all active:translate-y-1" href="#">
+<span class="material-symbols-outlined" data-icon="quiz">quiz</span>
+<span class="font-['JetBrains_Mono'] text-[10px] uppercase tracking-widest mt-1">Quizzes</span>
+</a>
+<!-- Circles is active destination -->
+<a class="flex flex-col items-center justify-center text-[#6bd8cb] font-bold active:translate-y-1 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="group" style="font-variation-settings: 'FILL' 1;">group</span>
+<span class="font-['JetBrains_Mono'] text-[10px] uppercase tracking-widest mt-1">Circles</span>
+</a>
+</nav>
+</body></html>

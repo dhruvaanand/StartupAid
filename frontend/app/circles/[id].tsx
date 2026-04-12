@@ -161,9 +161,9 @@ const styles = StyleSheet.create({
   shell: {
     flex: 1,
     backgroundColor: '#111827',
-    paddingHorizontal: 16,
+    paddingHorizontal: 24,
     paddingTop: 18,
-    paddingBottom: 14,
+    paddingBottom: 120,
   },
   courseTitle: {
     color: '#FFFFFF',

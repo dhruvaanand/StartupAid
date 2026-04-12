@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Gommies - Priority Map</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Manrope:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;700&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary": "#4edea3",
+                        "on-tertiary": "#27313f",
+                        "primary": "#6bd8cb",
+                        "inverse-on-surface": "#293040",
+                        "secondary-container": "#00a572",
+                        "on-primary": "#003732",
+                        "secondary-fixed-dim": "#4edea3",
+                        "inverse-surface": "#dce2f7",
+                        "surface-variant": "#2e3545",
+                        "on-tertiary-fixed-variant": "#3d4756",
+                        "surface-container-lowest": "#070e1d",
+                        "surface-dim": "#0c1322",
+                        "on-secondary-fixed-variant": "#005236",
+                        "on-error": "#690005",
+                        "error": "#ffb4ab",
+                        "on-background": "#dce2f7",
+                        "background": "#0c1322",
+                        "surface-bright": "#323949",
+                        "on-tertiary-container": "#202a38",
+                        "surface-tint": "#6bd8cb",
+                        "on-surface-variant": "#bcc9c6",
+                        "on-error-container": "#ffdad6",
+                        "outline": "#879391",
+                        "surface-container-high": "#232a3a",
+                        "primary-fixed-dim": "#6bd8cb",
+                        "outline-variant": "#3d4947",
+                        "on-tertiary-fixed": "#121c2a",
+                        "secondary-fixed": "#6ffbbe",
+                        "surface-container-low": "#141b2b",
+                        "primary-fixed": "#89f5e7",
+                        "tertiary-fixed-dim": "#bdc7d9",
+                        "surface-container": "#191f2f",
+                        "on-surface": "#dce2f7",
+                        "error-container": "#93000a",
+                        "on-primary-fixed-variant": "#005049",
+                        "on-primary-fixed": "#00201d",
+                        "on-secondary": "#003824",
+                        "primary-container": "#29a195",
+                        "tertiary-fixed": "#d9e3f6",
+                        "on-secondary-fixed": "#002113",
+                        "on-primary-container": "#00302b",
+                        "on-secondary-container": "#00311f",
+                        "surface-container-highest": "#2e3545",
+                        "tertiary": "#bdc7d9",
+                        "surface": "#0c1322",
+                        "tertiary-container": "#8791a3",
+                        "inverse-primary": "#006a61"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Space Grotesk"],
+                        "body": ["Manrope"],
+                        "label": ["Inter"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .neumorphic-card {
+            box-shadow: 4px 4px 12px #080c14, -4px -4px 12px rgba(27, 37, 55, 0.5);
+        }
+        .neumorphic-inset {
+            box-shadow: inset 4px 4px 8px #080c14, inset -4px -4px 8px rgba(27, 37, 55, 0.2);
+        }
+        .node-glow {
+            filter: drop-shadow(0 0 8px rgba(107, 216, 203, 0.6));
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface font-body selection:bg-primary/30">
+<!-- TopAppBar -->
+<header class="w-full top-0 sticky z-50 bg-[#0c1322] shadow-[4px_4px_12px_#080c14,-4px_-4px_12px_rgba(27,37,55,0.5)] flex items-center justify-between px-6 h-16">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-[#6bd8cb]">terminal</span>
+</div>
+<div class="flex flex-col items-center">
+<h1 class="text-[#6bd8cb] font-['Space_Grotesk'] uppercase tracking-widest font-bold text-xl leading-none">PRIORITY MAP</h1>
+<span class="font-['JetBrains_Mono'] text-[10px] text-outline tracking-wider">CS1.201</span>
+</div>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-outline-variant/30">
+<img class="w-full h-full object-cover" data-alt="minimalist user avatar profile picture with dark geometric background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB-wid5mjChqknPV6jHWALFNYSLJiHvG9-phXK4kb7imdjzyHOIGZPE5XTHcwIXTavM4VbZBsqx7syDZ5hyNI_egvdooN8079rFw0xeN2HCn8VqqGJR9DQkam8LeiMY15GXay-50UvLgJ8xIaI3j9tlTQ-alFkvgq_SPgxYYTWvJbQId0kcPwtugD9RLbxr_YusckBZ1OQPgdFCeP6diSvy42KD_DTgfCF1Fkm_jZ6DUA1Rgyu8dL_IuDgiTRcO6BgWZ1WuXeEqRG0"/>
+</div>
+</header>
+<main class="relative min-h-[calc(100vh-140px)] overflow-hidden">
+<!-- Course Selector -->
+<div class="px-6 py-4 flex overflow-x-auto gap-3 no-scrollbar">
+<button class="flex-shrink-0 px-6 py-2 rounded-full bg-primary text-on-primary font-['JetBrains_Mono'] text-[11px] font-bold uppercase tracking-wider transition-all active:scale-95 shadow-lg shadow-primary/20">
+                Algorithms
+            </button>
+<button class="flex-shrink-0 px-6 py-2 rounded-full bg-surface-container-high text-outline font-['JetBrains_Mono'] text-[11px] font-bold uppercase tracking-wider hover:bg-surface-container-highest transition-all active:scale-95">
+                Data Structures
+            </button>
+<button class="flex-shrink-0 px-6 py-2 rounded-full bg-surface-container-high text-outline font-['JetBrains_Mono'] text-[11px] font-bold uppercase tracking-wider hover:bg-surface-container-highest transition-all active:scale-95">
+                Discrete Math
+            </button>
+<button class="flex-shrink-0 px-6 py-2 rounded-full bg-surface-container-high text-outline font-['JetBrains_Mono'] text-[11px] font-bold uppercase tracking-wider hover:bg-surface-container-highest transition-all active:scale-95">
+                System Arch
+            </button>
+</div>
+<!-- Main Graph Area (Visualized with SVG for Force-Directed aesthetic) -->
+<div class="relative w-full h-[530px] md:h-[618px] bg-surface-container-lowest overflow-hidden">
+<!-- Search Bar Overlay -->
+<div class="absolute top-6 left-1/2 -translate-x-1/2 z-10 w-[90%] max-w-md">
+<div class="neumorphic-inset bg-surface-container-low rounded-full flex items-center px-5 py-3 group focus-within:ring-2 ring-primary/20 transition-all">
+<span class="material-symbols-outlined text-outline text-lg">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-on-surface placeholder:text-outline/50 w-full font-body text-sm ml-3" placeholder="Search topics..." type="text"/>
+</div>
+</div>
+<!-- Background Grid (Subtle) -->
+<div class="absolute inset-0 opacity-[0.03]" style="background-image: radial-gradient(circle, #6bd8cb 1px, transparent 1px); background-size: 40px 40px;"></div>
+<!-- Graph SVG -->
+<svg class="w-full h-full cursor-grab active:cursor-grabbing" viewbox="0 0 800 600">
+<!-- Lines -->
+<g stroke="#1E293B" stroke-opacity="0.6" stroke-width="1.5">
+<line x1="400" x2="250" y1="300" y2="180"></line>
+<line x1="400" x2="550" y1="300" y2="220"></line>
+<line x1="400" x2="420" y1="300" y2="450"></line>
+<line x1="250" x2="150" y1="180" y2="280"></line>
+<line x1="550" x2="680" y1="220" y2="150"></line>
+</g>
+<!-- Nodes -->
+<!-- High Priority (Active Selection) -->
+<g class="cursor-pointer" transform="translate(400, 300)">
+<circle class="animate-pulse" fill="#6bd8cb" fill-opacity="0.15" r="30"></circle>
+<circle class="node-glow" fill="#0D9488" r="20" stroke="#6bd8cb" stroke-width="2"></circle>
+<text class="font-['Space_Grotesk'] text-[11px] font-bold" fill="white" text-anchor="middle" y="40">Dynamic Programming</text>
+<text class="font-['JetBrains_Mono'] text-[9px]" fill="#94A3B8" text-anchor="middle" y="52">89%</text>
+</g>
+<!-- Medium Priority -->
+<g class="cursor-pointer" transform="translate(250, 180)">
+<circle fill="#FB923C" r="15"></circle>
+<text class="font-['Space_Grotesk'] text-[11px]" fill="white" text-anchor="middle" y="32">Recursion</text>
+<text class="font-['JetBrains_Mono'] text-[9px]" fill="#94A3B8" text-anchor="middle" y="44">67%</text>
+</g>
+<!-- Skip Priority -->
+<g class="cursor-pointer" transform="translate(550, 220)">
+<circle fill="#888780" r="11"></circle>
+<text class="font-['Space_Grotesk'] text-[11px]" fill="white" text-anchor="middle" y="28">B-Trees</text>
+<text class="font-['JetBrains_Mono'] text-[9px]" fill="#94A3B8" text-anchor="middle" y="40">12%</text>
+</g>
+<!-- High Priority -->
+<g class="cursor-pointer" transform="translate(150, 280)">
+<circle fill="#0D9488" r="20"></circle>
+<text class="font-['Space_Grotesk'] text-[11px]" fill="white" text-anchor="middle" y="38">Graph Traversal</text>
+<text class="font-['JetBrains_Mono'] text-[9px]" fill="#94A3B8" text-anchor="middle" y="50">74%</text>
+</g>
+<!-- Medium Priority -->
+<g class="cursor-pointer" transform="translate(420, 450)">
+<circle fill="#FB923C" r="15"></circle>
+<text class="font-['Space_Grotesk'] text-[11px]" fill="white" text-anchor="middle" y="32">Big O Notation</text>
+<text class="font-['JetBrains_Mono'] text-[9px]" fill="#94A3B8" text-anchor="middle" y="44">52%</text>
+</g>
+</svg>
+</div>
+<!-- Detail Card (Floating Slide-up) -->
+<div class="fixed bottom-24 left-4 right-4 z-40">
+<div class="neumorphic-card bg-surface-container-low rounded-lg p-6 flex flex-col gap-5 border border-outline-variant/10">
+<div class="flex justify-between items-start">
+<div>
+<h2 class="text-white font-headline text-xl leading-tight">Dynamic Programming</h2>
+<p class="text-outline text-xs font-['JetBrains_Mono'] mt-1">MODULE 4 • ADVANCED ALGO</p>
+</div>
+<span class="px-3 py-1 rounded-full bg-primary/10 text-primary border border-primary/20 text-[10px] font-['JetBrains_Mono'] font-bold uppercase tracking-wider">
+                        High Priority
+                    </span>
+</div>
+<div class="grid grid-cols-1 gap-4">
+<div class="flex items-center justify-between p-3 rounded-lg bg-surface-container-lowest/50">
+<span class="text-outline text-sm">Exam frequency</span>
+<span class="text-white font-['JetBrains_Mono'] text-sm font-bold">67%</span>
+</div>
+<div class="flex items-center justify-between p-3 rounded-lg bg-surface-container-lowest/50">
+<div class="flex items-center gap-2">
+<span class="text-outline text-sm">Peer difficulty</span>
+<div class="w-2 h-2 rounded-full bg-secondary"></div>
+</div>
+<span class="text-white font-['JetBrains_Mono'] text-sm font-bold">4.2/5</span>
+</div>
+<div class="flex items-center justify-between p-3 rounded-lg bg-surface-container-lowest/50">
+<div class="flex items-center gap-2">
+<span class="text-outline text-sm">Your confidence</span>
+<div class="w-2 h-2 rounded-full bg-error"></div>
+</div>
+<span class="text-error font-['JetBrains_Mono'] text-sm font-bold">Low</span>
+</div>
+</div>
+<button class="w-full py-4 rounded-full bg-gradient-to-br from-primary to-primary-container text-on-primary font-['JetBrains_Mono'] font-bold uppercase tracking-tighter active:scale-[0.98] transition-transform">
+                    Start Topic Focus Session
+                </button>
+</div>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-6 pt-3 bg-[#0c1322]/80 backdrop-blur-xl border-t border-[#3d4947]/15">
+<a class="flex flex-col items-center justify-center text-[#dce2f7]/40 hover:text-[#4edea3] transition-all active:translate-y-1" href="#">
+<span class="material-symbols-outlined mb-1">database</span>
+<span class="font-['JetBrains_Mono'] text-[10px] uppercase tracking-[0.1em]">Terminal</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#6bd8cb] bg-[#232a3a] rounded-full px-4 py-1 transition-all active:translate-y-1" href="#">
+<span class="material-symbols-outlined mb-1" style="font-variation-settings: 'FILL' 1;">hub</span>
+<span class="font-['JetBrains_Mono'] text-[10px] uppercase tracking-[0.1em]">Map</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#dce2f7]/40 hover:text-[#4edea3] transition-all active:translate-y-1" href="#">
+<span class="material-symbols-outlined mb-1">menu_book</span>
+<span class="font-['JetBrains_Mono'] text-[10px] uppercase tracking-[0.1em]">Library</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#dce2f7]/40 hover:text-[#4edea3] transition-all active:translate-y-1" href="#">
+<span class="material-symbols-outlined mb-1">timer</span>
+<span class="font-['JetBrains_Mono'] text-[10px] uppercase tracking-[0.1em]">Focus</span>
+</a>
+</nav>
+<!-- Background Elements -->
+<div class="fixed top-0 left-0 w-full h-full pointer-events-none -z-10 bg-[#0c1322]">
+<div class="absolute top-[-10%] right-[-10%] w-[50%] h-[50%] bg-primary/5 blur-[120px] rounded-full"></div>
+<div class="absolute bottom-[-10%] left-[-10%] w-[50%] h-[50%] bg-secondary/5 blur-[120px] rounded-full"></div>
+</div>
+</body></html>
